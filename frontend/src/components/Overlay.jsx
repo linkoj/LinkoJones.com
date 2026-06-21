@@ -54,6 +54,9 @@ export default function Overlay() {
           scrub: 0.6,
           onUpdate: (self) => {
             scrollState.target = self.progress;
+            // When no 3D render loop is mounted (?no3d / no WebGL), drive
+            // progress directly so DOM navigation keeps working.
+            if (!scrollState.hasRenderLoop) scrollState.progress = self.progress;
           },
         },
       });

@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { scrollState } from '../state/scroll';
@@ -7,6 +7,14 @@ import { CAM_START_Z, TRAVEL } from '../config';
 // Moves the camera straight down the corridor, tied to scroll progress.
 export default function CameraRig({ reduced = false }) {
   const look = useRef(new THREE.Vector3());
+
+  useEffect(() => {
+    // Signal that a render loop is driving `progress` (DOM nav relies on this).
+    scrollState.hasRenderLoop = true;
+    return () => {
+      scrollState.hasRenderLoop = false;
+    };
+  }, []);
 
   useFrame((state, delta) => {
     // Extra smoothing on top of ScrollTrigger's scrub for a cinematic glide.

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Sparkles, Float } from '@react-three/drei';
+import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import Corridor from './Corridor';
 import Exhibit from './Exhibit';
 import CameraRig from './CameraRig';
 import { STATIONS_COUNT, STATION_SPACING, STATION_ACCENTS } from '../config';
 
-export default function Scene({ mobile = false, reduced = false }) {
+export default function Scene({ mobile = false, reduced = false, bloom = false }) {
   // Exhibits live at stations 1..7 (intro & finale get bespoke pieces).
   const exhibits = [1, 2, 3, 4, 5, 6, 7];
 
@@ -53,6 +54,12 @@ export default function Scene({ mobile = false, reduced = false }) {
 
       {!reduced && (
         <Sparkles count={mobile ? 30 : 60} scale={[14, 5, 120]} position={[0, 2.5, -60]} size={2} speed={0.25} color="#bcd6f5" opacity={0.45} />
+      )}
+
+      {bloom && (
+        <EffectComposer multisampling={0} disableNormalPass>
+          <Bloom luminanceThreshold={0.25} intensity={0.9} mipmapBlur radius={0.7} />
+        </EffectComposer>
       )}
     </>
   );
