@@ -1,0 +1,42 @@
+{
+  "summary": "First end-to-end test of the UX Museum portfolio. Backend (FastAPI + MongoDB) is fully working: GET /api/, GET /api/health, POST /api/contact and GET /api/contact all behave correctly (7/7 pytest tests pass). Frontend in the normal (3D) path is fully functional: loader dismisses, the document is scrollable (~10692px tall), scrolling drives the overlay cross-fades through all 9 sections in order (intro -> about -> experience -> case-1/2/3 -> process -> skills -> contact), the active nav dot tracks the current section, nav-dot clicks scroll smoothly, step-next/step-prev work, keyboard navigation (ArrowUp/Down, Home, End) changes scrollY, case studies render Problem/Decision + 3 metric stats + a loaded image, the contact form POSTs to /api/contact and returns 200 with the success state 'Message sent', and the layout is responsive at 390x844 with no horizontal overflow. ONE BUG FOUND in the ?no3d fallback path: the active nav dot is stuck on 'intro' and step-next/step-prev/keyboard navigation become unreliable, because `scrollState.progress` is only advanced inside CameraRig's useFrame loop which never mounts under ?no3d.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "Nav / StepControls / keyboard nav (when running under ?no3d or when WebGL is unavailable)",
+        "issue": "Active nav dot stays on 'intro' and step-next/step-prev (and ArrowUp/Down/PageUp/PageDown) compute the wrong target section. Root cause: Nav.jsx and StepControls read `scrollState.progress`, but only CameraRig.jsx's useFrame writes to `scrollState.progress` (it eases `target` -> `progress`). When ?no3d is active (or WebGL is missing) the <Canvas> never mounts, so progress stays at 0 forever. ScrollTrigger still writes `scrollState.target`, so the fix is to either (a) update `scrollState.progress = self.progress` directly inside Overlay.jsx's ScrollTrigger onUpdate when 3D is disabled, or (b) make Nav/StepControls read `scrollState.target` as a fallback when progress is stale.",
+        "selector": "[data-testid='nav-dot-*'], [data-testid='step-next'], [data-testid='step-prev']",
+        "priority": "MEDIUM"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [
+    "Fix ?no3d fallback navigation: write scrollState.progress (not just target) from Overlay.jsx ScrollTrigger onUpdate so Nav active-dot, StepControls, and keyboard navigation work without the WebGL canvas mounted. Simplest patch: `onUpdate: (self) => { scrollState.target = self.progress; if (!hasCanvas) scrollState.progress = self.progress; }` or just always mirror target -> progress when no useFrame consumer is present."
+  ],
+  "critical_code_review_comments": [
+    "scrollState.progress is only driven by CameraRig's useFrame; this couples the HTML navigation to the 3D canvas being mounted. This is the root cause of the ?no3d nav bug and should be decoupled.",
+    "Overlay.jsx ScrollTrigger onUpdate publishes only `target`. Consider also publishing a non-smoothed `progress` so DOM-only consumers don't depend on the 3D render loop.",
+    "Nav.scrollToSection uses smooth scrolling which is fine, but Home and End showed slight under/over-shoot (e.g. End landed at 9357 vs max 9612). Acceptable for a cinematic feel; flag only if pixel-precision is needed.",
+    "Contact API endpoint accepts any string for `email` (Pydantic field is just `str`). Consider EmailStr for stricter validation (non-blocking).",
+    "No data-testid on Step controls' icons (only on the buttons themselves) — selectors already work via the button testids, so this is fine."
+  ],
+  "updated_files": [
+    "/app/backend/tests/backend_test.py (new)",
+    "/app/test_reports/iteration_1.json (new)",
+    "/app/test_reports/pytest/pytest_results.xml (new)"
+  ],
+  "success_rate": { "backend": "100%", "frontend": "~92% (core 3D path 100%, no3d nav controls broken)" },
+  "test_credentials": "n/a (no auth)",
+  "seed_data_creation": "Test created a few TEST_ prefixed contact rows in MongoDB via POST /api/contact (no cleanup endpoint provided; rows are tagged with TEST_ prefix and are safe to ignore or drop).",
+  "retest_needed": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend pytest suite at /app/backend/tests/backend_test.py is the canonical regression set. Frontend critical flows to re-check after main agent's fix for the ?no3d bug: (1) load /?no3d&nointro at desktop, scroll to ~55%, expect active nav-dot to be 'case-2' (currently it is 'intro' - the bug); (2) on the same URL click step-next from experience and confirm scrollY increases (currently it goes backwards because progress=0 -> next=section 1 = about); (3) press End then ArrowUp at /?no3d and confirm scrollY decreases by ~1 section. The normal /?nointro path (3D enabled) already works correctly for all of these.",
+  "rca of the issue": "In /app/frontend/src/state/scroll.js the store has both `target` (raw 0..1 from ScrollTrigger) and `progress` (smoothed). Overlay.jsx's ScrollTrigger only writes `target`. /app/frontend/src/three/CameraRig.jsx's useFrame is the SOLE writer of `progress`. When the URL contains `?no3d` (or WebGL is unavailable) App.js renders <FallbackStage/> instead of <Canvas>, so no useFrame runs and `progress` is permanently 0. Nav.jsx (active dot, keyboard nav) and StepControls (step-next/prev) all compute the current section from `scrollState.progress`, so they all break in fallback mode. Reproduction: open `/?no3d&nointro`, scroll to ~55%, observe active dot is still 'ENTER' (intro). Click step-next from experience and watch scrollY go from 2403 -> 1202 (backwards). Mitigation: also write `progress` from Overlay's onUpdate (either unconditionally or when no Canvas is mounted)."
+}

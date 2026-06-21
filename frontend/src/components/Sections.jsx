@@ -1,0 +1,190 @@
+import React from 'react';
+import { ArrowUpRight } from 'lucide-react';
+import { PROFILE, EXPERIENCE, PROCESS, SKILLS } from '../data/content';
+import ContactForm from './ContactForm';
+
+const Kicker = ({ children }) => (
+  <div className="kicker text-ice/80 mb-4" data-anim>{children}</div>
+);
+
+const Panel = ({ children, align = 'start', wide = false }) => (
+  <div
+    className={`flex w-full ${align === 'end' ? 'justify-end' : align === 'center' ? 'justify-center' : 'justify-start'}`}
+  >
+    <div className={`glass-strong rounded-3xl p-6 md:p-10 ${wide ? 'max-w-3xl' : 'max-w-xl'}`} data-anim>
+      {children}
+    </div>
+  </div>
+);
+
+export function IntroSection() {
+  return (
+    <div className="w-full flex justify-center text-center" data-anim>
+      <div className="max-w-3xl">
+        <div className="kicker text-ice/80 mb-6">{PROFILE.role} · {PROFILE.location}</div>
+        <h1 className="font-display text-5xl md:text-7xl lg:text-8xl leading-[0.95] tracking-tight text-glow">
+          {PROFILE.name}
+        </h1>
+        <p className="mt-7 text-lg md:text-2xl text-mist max-w-2xl mx-auto font-light">
+          {PROFILE.tagline}
+        </p>
+        <p className="mt-4 text-sm text-mist/60">
+          A museum of eleven years of design decisions — and the outcomes they produced.
+        </p>
+      </div>
+    </div>
+  );
+}
+
+export function AboutSection() {
+  return (
+    <Panel align="end" wide>
+      <Kicker>About</Kicker>
+      <h2 className="font-display text-3xl md:text-5xl leading-tight tracking-tight">
+        I design for the moment a user decides to trust a product.
+      </h2>
+      <p className="mt-6 text-mist leading-relaxed">
+        For over a decade I've led research-driven design in fintech, healthcare and commerce —
+        the kinds of products where a confusing screen costs people money, time or care.
+        My work pairs rigorous discovery with high craft, and I judge every decision by what it
+        changed for users and the business.
+      </p>
+      <div className="mt-8 flex flex-wrap gap-3 text-sm">
+        {['11 years', 'Research-led', 'Design systems', 'Outcome-obsessed'].map((t) => (
+          <span key={t} className="glass rounded-full px-4 py-2 text-mist">{t}</span>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+export function ExperienceSection() {
+  return (
+    <Panel align="start" wide>
+      <Kicker>Experience</Kicker>
+      <h2 className="font-display text-3xl md:text-4xl mb-8 tracking-tight">A timeline of teams & impact</h2>
+      <ul className="space-y-5">
+        {EXPERIENCE.map((e) => (
+          <li key={e.company} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-t border-white/10 pt-4">
+            <span className="text-xs tracking-widest2 text-ice/80 sm:w-32 shrink-0">{e.period}</span>
+            <div>
+              <div className="text-white font-medium">{e.role} · <span className="text-mist">{e.company}</span></div>
+              <div className="text-sm text-mist/70">{e.note}</div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Panel>
+  );
+}
+
+export function CaseSection({ data, align }) {
+  return (
+    <div className={`flex w-full ${align === 'end' ? 'justify-end' : 'justify-start'}`}>
+      <div className="glass-strong rounded-3xl overflow-hidden max-w-2xl w-full" data-anim>
+        <div className="relative">
+          <img
+            src={data.image}
+            alt={`${data.project} interface`}
+            loading="lazy"
+            className="w-full h-44 md:h-56 object-cover object-top"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f18] to-transparent" />
+          <div className="absolute bottom-4 left-6 right-6 flex items-end justify-between">
+            <div>
+              <div className="kicker text-ice/80">Case {data.index} · {data.year}</div>
+              <h2 className="font-display text-2xl md:text-3xl tracking-tight">{data.name}</h2>
+            </div>
+            <span className="text-xs text-mist/70">{data.company}</span>
+          </div>
+        </div>
+        <div className="p-6 md:p-8">
+          <p className="text-sm text-mist/70 mb-4">{data.role}</p>
+          <div className="space-y-4 text-sm leading-relaxed">
+            <p><span className="text-ice/90 font-medium">Problem. </span><span className="text-mist">{data.problem}</span></p>
+            <p><span className="text-ice/90 font-medium">Decision. </span><span className="text-mist">{data.decision}</span></p>
+          </div>
+          <div className="mt-6 grid grid-cols-3 gap-3">
+            {data.impact.map((m) => (
+              <div key={m.label} className="glass rounded-2xl px-3 py-4 text-center">
+                <div className="font-display text-xl md:text-2xl text-white">{m.value}</div>
+                <div className="text-[11px] uppercase tracking-widest2 text-mist/70 mt-1">{m.label}</div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-5 flex flex-wrap gap-2">
+            {data.tags.map((t) => (
+              <span key={t} className="text-[11px] text-mist/70 glass rounded-full px-3 py-1">{t}</span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function ProcessSection() {
+  return (
+    <Panel align="end" wide>
+      <Kicker>Process</Kicker>
+      <h2 className="font-display text-3xl md:text-4xl mb-8 tracking-tight">Designed to be measured, not admired</h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        {PROCESS.map((p) => (
+          <div key={p.no} className="border-t border-white/10 pt-4">
+            <div className="font-display text-ice text-lg mb-1">{p.no} — {p.title}</div>
+            <p className="text-sm text-mist leading-relaxed">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+export function SkillsSection() {
+  return (
+    <Panel align="start" wide>
+      <Kicker>Skills</Kicker>
+      <h2 className="font-display text-3xl md:text-4xl mb-8 tracking-tight">Capabilities</h2>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {SKILLS.map((g) => (
+          <div key={g.title}>
+            <div className="text-xs uppercase tracking-widest2 text-ice/80 mb-3">{g.title}</div>
+            <ul className="space-y-2">
+              {g.items.map((it) => (
+                <li key={it} className="text-sm text-mist">{it}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </Panel>
+  );
+}
+
+export function ContactSection() {
+  return (
+    <div className="w-full flex justify-center" data-anim>
+      <div className="glass-strong rounded-3xl p-6 md:p-10 max-w-2xl w-full text-center">
+        <div className="kicker text-ice/80 mb-4">Contact</div>
+        <h2 className="font-display text-3xl md:text-5xl tracking-tight">Let's build something worth trusting.</h2>
+        <p className="mt-4 text-mist">{PROFILE.availability}</p>
+        <div className="mt-8 flex justify-center">
+          <ContactForm />
+        </div>
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-5 text-sm">
+          {PROFILE.links.map((l) => (
+            <a
+              key={l.label}
+              href={l.href}
+              target={l.href.startsWith('http') ? '_blank' : undefined}
+              rel="noreferrer"
+              className="inline-flex items-center gap-1 text-mist hover:text-ice transition-colors"
+            >
+              {l.label} <ArrowUpRight className="w-3.5 h-3.5" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}

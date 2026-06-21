@@ -1,0 +1,138 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #05060a;
+  --ice: #7dd3fc;
+  --gold: #f5c77e;
+  color-scheme: dark;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--ink);
+  color: #eef2f8;
+  font-family: 'Satoshi', system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+#root {
+  position: relative;
+  width: 100%;
+}
+
+/* Hide scrollbar but keep wheel scrolling */
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+html {
+  scrollbar-width: none;
+}
+
+::selection {
+  background: rgba(125, 211, 252, 0.28);
+  color: #ffffff;
+}
+
+.font-display {
+  font-family: 'Clash Display', sans-serif;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.045);
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.glass-strong {
+  background: rgba(10, 14, 22, 0.55);
+  backdrop-filter: blur(26px) saturate(160%);
+  -webkit-backdrop-filter: blur(26px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.text-glow {
+  text-shadow: 0 0 28px rgba(125, 211, 252, 0.35);
+}
+
+.kicker {
+  font-family: 'Satoshi', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.34em;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.fine-line {
+  height: 1px;
+  background: linear-gradient(90deg, rgba(125, 211, 252, 0.6), rgba(125, 211, 252, 0));
+}
+
+/* Overlay sections stack on top of the canvas */
+.overlay-section {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  padding: clamp(1.5rem, 6vw, 7rem);
+  pointer-events: none;
+  z-index: 20;
+  will-change: opacity, transform;
+}
+
+.overlay-inner {
+  pointer-events: auto;
+  width: 100%;
+}
+
+.grain::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+.loader-root {
+  animation: loaderout 2.6s ease forwards;
+}
+@keyframes loaderout {
+  0%,
+  62% {
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+.loader-bar2 {
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: barfill 1.9s ease-out forwards;
+}
+@keyframes barfill {
+  to {
+    transform: scaleX(1);
+  }
+}
