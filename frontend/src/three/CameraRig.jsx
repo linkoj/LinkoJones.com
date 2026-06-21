@@ -14,6 +14,7 @@ export default function CameraRig({ reduced = false }) {
     return () => {
       scrollState.hasRenderLoop = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useFrame((state, delta) => {

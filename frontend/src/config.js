@@ -16,3 +16,10 @@ export const STATION_ACCENTS = [
   '#7DD3FC',
   '#7DD3FC',
 ];
+
+// UI / pacing constants.
+export const MOBILE_BREAKPOINT = 768;
+export const SECTION_SCROLL_VH = 110; // scroll length per section
+export const SCENE_MOUNT_DELAY_MS = 250; // let the loader paint before WebGL
+export const SPARKLES_DESKTOP = 60;
+export const SPARKLES_MOBILE = 30;

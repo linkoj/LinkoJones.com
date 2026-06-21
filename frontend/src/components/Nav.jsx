@@ -23,6 +23,7 @@ export default function Nav() {
     };
     loop();
     return () => cancelAnimationFrame(raf.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Keyboard navigation between stations.
@@ -45,6 +46,7 @@ export default function Nav() {
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -87,6 +89,7 @@ export function ScrollHint() {
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   if (gone) return null;
   return (

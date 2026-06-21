@@ -8,6 +8,7 @@ import Nav, { ScrollHint, StepControls } from './components/Nav';
 import Loader from './components/Loader';
 import useIsMobile, { prefersReducedMotion } from './hooks/useIsMobile';
 import { SECTIONS } from './data/content';
+import { SECTION_SCROLL_VH, SCENE_MOUNT_DELAY_MS } from './config';
 
 function detectRenderer() {
   try {
@@ -39,8 +40,9 @@ export default function App() {
 
   useEffect(() => {
     // Let the loader paint first, then bring the 3D stage online.
-    const t = setTimeout(() => setMountScene(true), 250);
+    const t = setTimeout(() => setMountScene(true), SCENE_MOUNT_DELAY_MS);
     return () => clearTimeout(t);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -72,7 +74,7 @@ export default function App() {
       <ScrollHint />
 
       {/* Scroll length driver — creates the journey distance */}
-      <div id="scroll-spacer" style={{ height: `${SECTIONS.length * 110}vh` }} aria-hidden="true" />
+      <div id="scroll-spacer" style={{ height: `${SECTIONS.length * SECTION_SCROLL_VH}vh` }} aria-hidden="true" />
     </div>
   );
 }

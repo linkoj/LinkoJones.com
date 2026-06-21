@@ -83,6 +83,7 @@ export default function Overlay() {
       ScrollTrigger.refresh();
     });
     return () => ctx.revert();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

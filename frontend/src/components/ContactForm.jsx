@@ -1,31 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Send, Check, Loader2 } from 'lucide-react';
 import { PROFILE } from '../data/content';
-
-const BACKEND = process.env.REACT_APP_BACKEND_URL;
+import useContactForm from '../hooks/useContactForm';
 
 export default function ContactForm() {
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
-  const [status, setStatus] = useState('idle'); // idle | sending | done | error
-
-  const onChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
-
-  const onSubmit = async (e) => {
-    e.preventDefault();
-    setStatus('sending');
-    try {
-      const res = await fetch(`${BACKEND}/api/contact`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error('failed');
-      setStatus('done');
-      setForm({ name: '', email: '', message: '' });
-    } catch (err) {
-      setStatus('error');
-    }
-  };
+  const { form, status, onChange, onSubmit } = useContactForm();
 
   return (
     <form data-testid="contact-form" onSubmit={onSubmit} className="space-y-3 max-w-md">

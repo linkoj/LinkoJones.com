@@ -7,10 +7,14 @@ const Kicker = ({ children }) => (
   <div className="kicker text-ice/80 mb-4" data-anim>{children}</div>
 );
 
+const ALIGN_CLASS = {
+  start: 'justify-start',
+  center: 'justify-center',
+  end: 'justify-end',
+};
+
 const Panel = ({ children, align = 'start', wide = false }) => (
-  <div
-    className={`flex w-full ${align === 'end' ? 'justify-end' : align === 'center' ? 'justify-center' : 'justify-start'}`}
-  >
+  <div className={`flex w-full ${ALIGN_CLASS[align] || ALIGN_CLASS.start}`}>
     <div className={`glass-strong rounded-3xl p-6 md:p-10 ${wide ? 'max-w-3xl' : 'max-w-xl'}`} data-anim>
       {children}
     </div>

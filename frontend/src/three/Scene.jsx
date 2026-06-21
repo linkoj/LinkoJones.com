@@ -4,7 +4,13 @@ import { EffectComposer, Bloom } from '@react-three/postprocessing';
 import Corridor from './Corridor';
 import Exhibit from './Exhibit';
 import CameraRig from './CameraRig';
-import { STATIONS_COUNT, STATION_SPACING, STATION_ACCENTS } from '../config';
+import {
+  STATIONS_COUNT,
+  STATION_SPACING,
+  STATION_ACCENTS,
+  SPARKLES_DESKTOP,
+  SPARKLES_MOBILE,
+} from '../config';
 
 export default function Scene({ mobile = false, reduced = false, bloom = false }) {
   // Exhibits live at stations 1..7 (intro & finale get bespoke pieces).
@@ -53,7 +59,7 @@ export default function Scene({ mobile = false, reduced = false, bloom = false }
       </Float>
 
       {!reduced && (
-        <Sparkles count={mobile ? 30 : 60} scale={[14, 5, 120]} position={[0, 2.5, -60]} size={2} speed={0.25} color="#bcd6f5" opacity={0.45} />
+        <Sparkles count={mobile ? SPARKLES_MOBILE : SPARKLES_DESKTOP} scale={[14, 5, 120]} position={[0, 2.5, -60]} size={2} speed={0.25} color="#bcd6f5" opacity={0.45} />
       )}
 
       {bloom && (
