@@ -1,103 +1,106 @@
-// All copy + case-study data lives here so the experience is easy to edit.
-// Placeholder content for a senior UX designer — written to foreground
-// storytelling and measurable outcomes (the real star of the show).
+// All copy + case-study data for Linko Jones (Samuel Olutola).
+// Sourced from his 2025 CV / UX portfolio. Edit here to update the site.
 
 export const PROFILE = {
-  name: 'Maya Chen',
-  role: 'Senior UX Designer',
-  tagline: 'I turn ambiguous problems into products people trust.',
-  location: 'San Francisco · Remote',
-  email: 'hello@mayachen.design',
-  availability: 'Available for senior & lead roles',
+  name: 'Linko Jones',
+  role: 'Senior UX Designer · UX Consultant',
+  tagline: 'Creative thinking meets technical craft — for products people actually find usable.',
+  location: 'Kingswood, Surrey · London',
+  email: 'info@linkojones.com',
+  availability: 'Available for senior & lead UX roles',
   links: [
-    { label: 'LinkedIn', href: 'https://www.linkedin.com/' },
-    { label: 'Read CV', href: '#contact' },
-    { label: 'Dribbble', href: 'https://dribbble.com/' },
+    { label: 'LinkedIn', href: 'https://uk.linkedin.com/in/linkojones' },
+    { label: 'linkojones.com', href: 'https://linkojones.com' },
+    { label: 'Email', href: 'mailto:info@linkojones.com' },
   ],
 };
 
 const CASES = [
   {
     index: '01',
-    name: 'Trust by Default',
-    project: 'Fintech onboarding redesign',
-    year: '2024',
-    company: 'Northwind Bank',
-    role: 'Lead designer · 0→1 research, IA, interaction',
+    name: 'Banking, Humanised',
+    project: 'Bank of Ireland — mobile banking',
+    year: '2022',
+    company: 'Bank of Ireland',
+    role: 'Senior UX Designer · research, IA, interaction',
     image:
       'https://static.prod-images.emergentagent.com/jobs/93a24390-dc14-4ba6-9cbc-17b819b59f52/images/29421798cf62186ef5a2b36a7672bea1348705ab148fc25a80a5afcdb5961c96.png',
     problem:
-      'New users abandoned account opening at a 38% drop-off. Identity verification felt like an interrogation, not a welcome.',
+      'The mobile banking app needed to feel like a service, not a screen — helping customers stay ahead of financial delinquency with timely, tailored guidance.',
     decision:
-      'I reframed onboarding as a progressive trust exchange — asking for the least sensitive data first, explaining the “why” inline, and letting people preview the product before full KYC.',
+      'I rebuilt the experience from research, personas and user journeys, introduced a chatbot-led service model for proactive support, and realigned the whole app to the bank’s new design framework across tablet and mobile.',
     impact: [
-      { value: '38%→12%', label: 'Drop-off' },
-      { value: '+24%', label: 'Activation' },
-      { value: '−41%', label: 'Support tickets' },
+      { value: 'Chatbot', label: 'Service model' },
+      { value: 'Tablet + Mobile', label: 'Platforms' },
+      { value: 'New framework', label: 'Visual system' },
     ],
-    tags: ['Research', 'IA', 'Compliance', 'Design system'],
+    tags: ['User research', 'Personas', 'Prototyping', 'Service design'],
   },
   {
     index: '02',
-    name: 'Ninety Seconds',
-    project: 'Healthcare scheduling app',
-    year: '2023',
-    company: 'Vita Health',
-    role: 'Senior designer · service design, prototyping',
+    name: 'Underwriting, Unblocked',
+    project: 'QBE — underwriting platform',
+    year: '2022',
+    company: 'QBE',
+    role: 'Senior UX Designer · interaction, usability',
     image:
       'https://static.prod-images.emergentagent.com/jobs/93a24390-dc14-4ba6-9cbc-17b819b59f52/images/f6037567b898117675595cdd6c724961271806479561bba4eea7ba9a31241fbf.png',
     problem:
-      'Booking a specialist took 6 minutes across 9 screens. Patients with chronic conditions gave up and called instead — overloading the clinic.',
+      'A Pega-driven underwriting platform was complex and manual. Underwriters needed an intuitive workflow that let automation do the heavy lifting.',
     decision:
-      'I mapped the real decision a patient makes (who, when, how soon) and collapsed the flow into a single adaptive view with smart defaults and same-day surfacing.',
+      'I explored new navigation models and screen flows, evolved the strongest wireframes into a full design solution on the QBE NorthStar system, and validated it through usability testing backed by interviews with the day-to-day operations team.',
     impact: [
-      { value: '6m→90s', label: 'Time to book' },
-      { value: '+31', label: 'NPS' },
-      { value: '+19%', label: 'Online bookings' },
+      { value: 'NorthStar', label: 'Platform' },
+      { value: 'Automation', label: 'Workflow' },
+      { value: 'Usability-tested', label: 'Validation' },
     ],
-    tags: ['Service design', 'Accessibility', 'Prototyping'],
+    tags: ['Underwriting', 'Pega', 'Automation', 'Usability testing'],
   },
   {
     index: '03',
-    name: 'The Recovered Cart',
-    project: 'E-commerce checkout',
-    year: '2022',
-    company: 'Loom & Co.',
-    role: 'Senior designer · interaction, experimentation',
+    name: 'A Portal Professionals Trust',
+    project: 'Vanguard — financial professionals portal',
+    year: '2023',
+    company: 'Vanguard',
+    role: 'Senior UX Designer · research, IA, design systems',
     image:
       'https://static.prod-images.emergentagent.com/jobs/93a24390-dc14-4ba6-9cbc-17b819b59f52/images/ccbfc96684b82eec91e51c05449c4b53d0ba262ed2a9e420fe4a09c87643b3b2.png',
     problem:
-      'A four-step checkout leaked revenue at every transition, especially on mobile where address entry was punishing.',
+      'Vanguard was migrating from legacy software into Dynamics 365, and needed a secure portal for financial professionals plus a CPD learning experience.',
     decision:
-      'I designed a single-surface checkout with order summary always visible, express paths up top, and forgiving validation — then proved each change through a 6-week A/B program.',
+      'I led user research and built personas and scenarios in sync with the brand, then designed a secure B2B portal and a CPD learning portal that surfaces signals and insights for the sales teams.',
     impact: [
-      { value: '+18%', label: 'Conversion' },
-      { value: '$4.2M', label: 'Annual revenue' },
-      { value: '−2.3s', label: 'Time to pay' },
+      { value: 'Dynamics 365', label: 'Platform' },
+      { value: 'Secure portal', label: 'Delivered' },
+      { value: 'CPD learning', label: 'New product' },
     ],
-    tags: ['Interaction', 'Experimentation', 'Mobile'],
+    tags: ['B2B', 'Design system', 'Research', 'Dynamics 365'],
   },
 ];
 
 export const EXPERIENCE = [
-  { company: 'Northwind Bank', role: 'Lead UX Designer', period: '2023 — Now', note: 'Owning trust & onboarding across web and native.' },
-  { company: 'Vita Health', role: 'Senior UX Designer', period: '2021 — 2023', note: 'Service design for patient-facing scheduling.' },
-  { company: 'Loom & Co.', role: 'Senior Product Designer', period: '2018 — 2021', note: 'Commerce, checkout & growth experimentation.' },
-  { company: 'Studio Field', role: 'Product Designer', period: '2015 — 2018', note: 'Agency work for early-stage startups.' },
+  { company: 'LJ Tech', role: 'UX Consultant', period: '2023 — Now', note: 'Advising SMEs on ROI through user-centred and deliberate service design; weekly UX audits.' },
+  { company: 'Vanguard', role: 'Senior UX Designer', period: '2023', note: 'CRM-embedded pages, services portal, dashboards and the B2B institutional client portal.' },
+  { company: 'Bank of Ireland', role: 'Senior UX Designer', period: '2022', note: 'Chatbot-led service experience and a mobile app aligned to the new design framework.' },
+  { company: 'Generali', role: 'Senior UX Designer', period: '2022', note: 'Digital transformation — discovery with underwriters, then designing out their pain points.' },
+  { company: 'QBE', role: 'Senior UX Designer', period: '2021 — 2022', note: 'New intuitive underwriting experience on the QBE NorthStar system.' },
+  { company: 'Incepteo', role: 'UI/UX Designer · Developer', period: '2019 — 2020', note: 'Redesigned an IT outsourcing company’s workplace collaboration platform.' },
 ];
 
 export const PROCESS = [
-  { no: '01', title: 'Discover', desc: 'Interviews, analytics and journey mapping until the real problem is undeniable.' },
-  { no: '02', title: 'Define', desc: 'Sharp problem statements, success metrics and the riskiest assumptions to test.' },
-  { no: '03', title: 'Design', desc: 'Flows, systems and high-fidelity prototypes — designed to be measured, not admired.' },
-  { no: '04', title: 'Validate', desc: 'Usability testing and A/B experiments. Ship, learn, and prove the impact.' },
+  { no: '01', title: 'Learn', desc: 'Understand users, context and technology — user data, competitive research, interviews and field studies.' },
+  { no: '02', title: 'Explore', desc: 'Build profiles and structure: sitemaps, content inventories, screen flows, navigation models and journeys.' },
+  { no: '03', title: 'Sketch', desc: 'Evaluate, test and select wireframe concepts ready for prototype development.' },
+  { no: '04', title: 'Design', desc: 'Write specifications and evolve concepts and wireframes into a full design solution.' },
+  { no: '05', title: 'Build', desc: 'Plan for developers, review with stakeholders for feedback and run usability testing.' },
+  { no: '06', title: 'Evaluate', desc: 'Ship the deliverables, track goals and integration, then analyse and iterate.' },
 ];
 
 export const SKILLS = [
-  { title: 'Research', items: ['User interviews', 'Usability testing', 'Surveys', 'Journey mapping'] },
-  { title: 'Craft', items: ['Interaction design', 'Design systems', 'Prototyping', 'Information architecture'] },
-  { title: 'Strategy', items: ['Product thinking', 'Experimentation', 'Metrics & outcomes', 'Workshop facilitation'] },
-  { title: 'Tools', items: ['Figma', 'Framer', 'Maze', 'Mixpanel'] },
+  { title: 'Research', items: ['Interviews', 'Contextual inquiry', 'Usability testing', 'Comparative analysis', 'Surveys'] },
+  { title: 'Design', items: ['Interaction design', 'Wireframing', 'Prototyping', 'UI & visual design', 'Storyboarding'] },
+  { title: 'Tools', items: ['Figma', 'Adobe XD', 'Miro', 'Principle', 'Photoshop · Illustrator'] },
+  { title: 'Development', items: ['HTML5 · CSS3', 'JavaScript', 'React', 'PHP'] },
 ];
 
 // SECTIONS drive both the overlay copy and the 3D stations (index-aligned).

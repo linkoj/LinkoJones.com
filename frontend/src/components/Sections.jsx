@@ -33,7 +33,7 @@ export function IntroSection() {
           {PROFILE.tagline}
         </p>
         <p className="mt-4 text-sm text-mist/60">
-          A museum of eleven years of design decisions — and the outcomes they produced.
+          A walk through the work, the decisions behind it, and the outcomes they shaped.
         </p>
       </div>
     </div>
@@ -45,16 +45,17 @@ export function AboutSection() {
     <Panel align="end" wide>
       <Kicker>About</Kicker>
       <h2 className="font-display text-3xl md:text-5xl leading-tight tracking-tight">
-        I design for the moment a user decides to trust a product.
+        I design usable products by seeing a problem from every angle.
       </h2>
       <p className="mt-6 text-mist leading-relaxed">
-        For over a decade I've led research-driven design in fintech, healthcare and commerce —
-        the kinds of products where a confusing screen costs people money, time or care.
-        My work pairs rigorous discovery with high craft, and I judge every decision by what it
-        changed for users and the business.
+        Across insurance, banking and investment platforms, I've designed the services and
+        interfaces people rely on — pairing rigorous user research with a developer's sense of
+        what's actually buildable. Being exposed to the whole business process taught me why
+        user experience has to be done with laser-like precision, and keeping an open mind is how
+        well thought-out, usable products come to life.
       </p>
       <div className="mt-8 flex flex-wrap gap-3 text-sm">
-        {['11 years', 'Research-led', 'Design systems', 'Outcome-obsessed'].map((t) => (
+        {['UX Consultant', 'Research-led', 'Design systems', 'Front-end fluent'].map((t) => (
           <span key={t} className="glass rounded-full px-4 py-2 text-mist">{t}</span>
         ))}
       </div>

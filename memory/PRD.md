@@ -1,4 +1,4 @@
-# PRD — "Atelier" · Cinematic 3D UX Designer Portfolio
+# PRD — Linko Jones · Cinematic 3D UX Designer Portfolio (linkojones.com)
 
 ## Original problem statement
 Premium portfolio for a senior UX designer that feels like a cinematic interactive
@@ -46,6 +46,17 @@ the star; the 3D is the stage.
 - Testing agent iteration_1: backend 100% (7/7), frontend 3D path 100%
   (scrollable ~10692px, all sections cross-fade, nav/keyboard/steps, case content +
   images, contact POST 200, responsive). Fixed: fallback nav reading stale progress.
+
+## Content (2026-06-21, updated)
+- Real identity applied from CV: Linko Jones (Samuel Olutola), Senior UX Designer /
+  UX Consultant, Kingswood Surrey · London, info@linkojones.com,
+  linkedin.com/in/linkojones, linkojones.com. For linkojones.com.
+- Case studies are his real projects: Bank of Ireland (mobile banking + chatbot),
+  QBE (NorthStar underwriting platform), Vanguard (Dynamics 365 professionals + CPD
+  portal). NOTE: CV had no hard numeric metrics, so the three "impact" chips per case
+  use factual project highlights (platform/scope/validation), not invented numbers.
+- Experience (6 roles), Process (his 6-step Learn→Evaluate), Skills (Research/Design/
+  Tools/Development) all sourced from the CV.
 
 ## URL debug flags
 - `?no3d` — render CSS fallback instead of WebGL canvas.
