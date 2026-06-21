@@ -33,7 +33,7 @@ export function IntroSection() {
           {PROFILE.tagline}
         </p>
         <p className="mt-4 text-sm text-mist/60">
-          A walk through the work, the decisions behind it, and the outcomes they shaped.
+          A drive through the work, the decisions behind it, and the outcomes they shaped.
         </p>
       </div>
     </div>

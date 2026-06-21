@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --ink: #05060a;
-  --ice: #7dd3fc;
-  --gold: #f5c77e;
+  --ink: #0a0603;
+  --ice: #ff8a4c;
+  --gold: #ffc178;
   color-scheme: dark;
 }
 
@@ -39,7 +39,7 @@ html {
 }
 
 ::selection {
-  background: rgba(125, 211, 252, 0.28);
+  background: rgba(255, 138, 76, 0.3);
   color: #ffffff;
 }
 
@@ -62,7 +62,7 @@ html {
 }
 
 .text-glow {
-  text-shadow: 0 0 28px rgba(125, 211, 252, 0.35);
+  text-shadow: 0 0 30px rgba(255, 120, 40, 0.42);
 }
 
 .kicker {
@@ -75,7 +75,7 @@ html {
 
 .fine-line {
   height: 1px;
-  background: linear-gradient(90deg, rgba(125, 211, 252, 0.6), rgba(125, 211, 252, 0));
+  background: linear-gradient(90deg, rgba(255, 138, 76, 0.6), rgba(255, 138, 76, 0));
 }
 
 /* Overlay sections stack on top of the canvas */

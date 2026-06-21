@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { Canvas } from '@react-three/fiber';
 import Scene from './three/Scene';
-import FallbackStage from './components/FallbackStage';
+import TunnelBackground from './components/TunnelBackground';
 import Overlay from './components/Overlay';
 import Header from './components/Header';
 import Nav, { ScrollHint, StepControls } from './components/Nav';
@@ -36,10 +36,9 @@ export default function App() {
   const [mountScene, setMountScene] = useState(false);
   const [{ use3D, software }] = useState(detectRenderer);
   const skipIntro = typeof window !== 'undefined' && window.location.search.includes('nointro');
-  const bloom = use3D && !software && !mobile;
 
   useEffect(() => {
-    // Let the loader paint first, then bring the 3D stage online.
+    // Let the loader paint first, then bring the 3D ember layer online.
     const t = setTimeout(() => setMountScene(true), SCENE_MOUNT_DELAY_MS);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,20 +48,21 @@ export default function App() {
     <div className="grain">
       {!skipIntro && <Loader />}
 
-      {/* Fixed cinematic stage */}
+      {/* Pagani Zonda tunnel backdrop */}
+      <TunnelBackground />
+
+      {/* Transparent 3D ember layer over the tunnel */}
       <div className="fixed inset-0 z-0" style={{ pointerEvents: 'none' }}>
-        {use3D && mountScene ? (
+        {use3D && !software && mountScene && (
           <Canvas
-            dpr={[1, mobile ? 1.4 : 1.75]}
-            gl={{ antialias: true, powerPreference: 'high-performance', alpha: false }}
-            camera={{ position: [0, 1.5, 7], fov: 48, near: 0.1, far: 200 }}
+            dpr={[1, mobile ? 1.3 : 1.6]}
+            gl={{ antialias: true, powerPreference: 'high-performance', alpha: true }}
+            camera={{ position: [0, 0, 10], fov: 55, near: 0.1, far: 100 }}
           >
             <Suspense fallback={null}>
-              <Scene mobile={mobile} reduced={reduced} bloom={bloom} />
+              <Scene mobile={mobile} reduced={reduced} />
             </Suspense>
           </Canvas>
-        ) : (
-          <FallbackStage />
         )}
       </div>
 

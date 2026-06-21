@@ -94,7 +94,7 @@ export function ScrollHint() {
   if (gone) return null;
   return (
     <div className="fixed bottom-7 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 text-mist/70 pointer-events-none">
-      <span className="text-[10px] uppercase tracking-widest2">Scroll to walk through</span>
+      <span className="text-[10px] uppercase tracking-widest2">Scroll to drive through</span>
       <ChevronDown className="w-4 h-4 animate-bounce" />
     </div>
   );

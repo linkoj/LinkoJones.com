@@ -47,6 +47,19 @@ the star; the 3D is the stage.
   (scrollable ~10692px, all sections cross-fade, nav/keyboard/steps, case content +
   images, contact POST 200, responsive). Fixed: fallback nav reading stale progress.
 
+## Background theme (2026-06-21, updated)
+- Replaced the museum corridor with the **Pagani Zonda tunnel** backdrop
+  (`components/TunnelBackground.jsx`) using the client's hosted GIF
+  (linkojones.com/img/Pagani_Zonda_Tunnel_Sound.gif). Full-bleed, scroll-driven
+  scale-in ("drive through" feel); origin/scale crops the GIF's baked-in watermark.
+- 3D layer (`three/Scene.jsx`) is now a transparent **warm-ember Sparkles** field
+  over the tunnel (only mounts on hardware GPUs; software renderers show just the
+  GIF). Old Corridor/Exhibit/CameraRig + FallbackStage no longer used by App.
+- Palette retuned to **flame/amber** (Tailwind `ice`→#FF8A4C, `gold`→#FFC178,
+  `ember` #FF4D16; deep warm-black ink). Thematic copy: loader "IGNITION", hint
+  "Scroll to drive through", intro "A drive through the work…".
+- NOTE: GIF is ~15MB (client asset); fine on desktop, heavier on mobile.
+
 ## Content (2026-06-21, updated)
 - Real identity applied from CV: Linko Jones (Samuel Olutola), Senior UX Designer /
   UX Consultant, Kingswood Surrey · London, info@linkojones.com,

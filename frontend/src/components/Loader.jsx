@@ -14,7 +14,7 @@ export default function Loader() {
       <div className="mt-10 h-px w-56 md:w-72 bg-white/10 overflow-hidden">
         <div className="h-full bg-ice loader-bar2" />
       </div>
-      <div className="mt-4 text-xs tracking-widest2 text-mist/60">ENTERING THE GALLERY</div>
+      <div className="mt-4 text-xs tracking-widest2 text-mist/60">IGNITION</div>
     </div>
   );
 }
