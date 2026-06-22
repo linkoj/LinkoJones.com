@@ -73,7 +73,7 @@ export function ExperienceSection() {
           <li key={e.company} className="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-t border-white/10 pt-4">
             <span className="text-xs tracking-widest2 text-ice/80 sm:w-32 shrink-0">{e.period}</span>
             <div>
-              <div className="text-white font-medium">{e.role} · <span className="text-mist">{e.company}</span></div>
+              <div className="text-night font-medium">{e.role} · <span className="text-mist">{e.company}</span></div>
               <div className="text-sm text-mist/70">{e.note}</div>
             </div>
           </li>
@@ -97,10 +97,10 @@ export function CaseSection({ data, align }) {
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0f18] to-transparent" />
           <div className="absolute bottom-4 left-6 right-6 flex items-end justify-between">
             <div>
-              <div className="kicker text-ice/80">Case {data.index} · {data.year}</div>
-              <h2 className="font-display text-2xl md:text-3xl tracking-tight">{data.name}</h2>
+              <div className="kicker text-white/85">Case {data.index} · {data.year}</div>
+              <h2 className="font-display text-2xl md:text-3xl tracking-tight text-white">{data.name}</h2>
             </div>
-            <span className="text-xs text-mist/70">{data.company}</span>
+            <span className="text-xs text-white/70">{data.company}</span>
           </div>
         </div>
         <div className="p-6 md:p-8">
@@ -112,7 +112,7 @@ export function CaseSection({ data, align }) {
           <div className="mt-6 grid grid-cols-3 gap-3">
             {data.impact.map((m) => (
               <div key={m.label} className="glass rounded-2xl px-3 py-4 text-center">
-                <div className="font-display text-xl md:text-2xl text-white">{m.value}</div>
+                <div className="font-display text-xl md:text-2xl text-ice">{m.value}</div>
                 <div className="text-[11px] uppercase tracking-widest2 text-mist/70 mt-1">{m.label}</div>
               </div>
             ))}

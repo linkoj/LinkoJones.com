@@ -47,18 +47,24 @@ the star; the 3D is the stage.
   (scrollable ~10692px, all sections cross-fade, nav/keyboard/steps, case content +
   images, contact POST 200, responsive). Fixed: fallback nav reading stale progress.
 
-## Background theme (2026-06-21, updated)
-- Replaced the museum corridor with the **Pagani Zonda tunnel** backdrop
-  (`components/TunnelBackground.jsx`) using the client's hosted GIF
-  (linkojones.com/img/Pagani_Zonda_Tunnel_Sound.gif). Full-bleed, scroll-driven
-  scale-in ("drive through" feel); origin/scale crops the GIF's baked-in watermark.
-- 3D layer (`three/Scene.jsx`) is now a transparent **warm-ember Sparkles** field
-  over the tunnel (only mounts on hardware GPUs; software renderers show just the
-  GIF). Old Corridor/Exhibit/CameraRig + FallbackStage no longer used by App.
-- Palette retuned to **flame/amber** (Tailwind `ice`→#FF8A4C, `gold`→#FFC178,
-  `ember` #FF4D16; deep warm-black ink). Thematic copy: loader "IGNITION", hint
-  "Scroll to drive through", intro "A drive through the work…".
-- NOTE: GIF is ~15MB (client asset); fine on desktop, heavier on mobile.
+## Theme (2026-06-21, updated to brand light theme)
+- Switched to Linko's brand palette from linkojones.com/new/: primary blue
+  `#004bc8` (`ice`), navy `#000826`/text `#0a1230` (`ink`/`night`), red accent
+  `#f05454` (`gold`), sky `#5f8ce7`, slate muted `#5a6b86` (`mist`), light bg #eef3fb.
+- Added a translucent WHITE scrim over the tunnel canvas (TunnelBackground.jsx) so
+  copy sits on a legible light background; panels are now WHITE frosted glass with
+  navy copy. Loader is light. 3D embers retinted to brand blues.
+- NOTE: Tailwind token KEYS are reused (`ice`,`gold`,`ink`) but now hold brand
+  hues to minimise class churn.
+
+## Background: scroll-scrubbed tunnel (2026-06-21)
+- `components/TunnelBackground.jsx` draws a 180-frame JPEG sequence
+  (`public/zonda/frame_000..179.jpg`, ~3.2MB total, extracted from the client GIF)
+  to a 2D canvas; an rAF loop maps `scrollState.target` → frame index, so scrolling
+  scrubs the Pagani Zonda forward through the tunnel. Works without WebGL.
+  ZOOM/ORIGIN crop hides the source GIF watermark.
+- Verified (testing iteration_2): canvas fingerprints differ across scroll
+  positions (scrubbing works); sections/nav/keyboard/contact all regression-pass.
 
 ## Content (2026-06-21, updated)
 - Real identity applied from CV: Linko Jones (Samuel Olutola), Senior UX Designer /

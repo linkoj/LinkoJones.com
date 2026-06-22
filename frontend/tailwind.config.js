@@ -8,11 +8,12 @@ module.exports = {
         sans: ['"Satoshi"', 'ui-sans-serif', 'system-ui', 'sans-serif'],
       },
       colors: {
-        ink: '#0a0603',
-        ice: '#FF8A4C',
-        gold: '#FFC178',
-        ember: '#FF4D16',
-        mist: '#C7B6A6',
+        ink: '#000826',
+        ice: '#004bc8',
+        gold: '#f05454',
+        sky: '#5f8ce7',
+        mist: '#5a6b86',
+        night: '#0a1230',
       },
       letterSpacing: {
         widest2: '0.32em',

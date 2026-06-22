@@ -7,7 +7,7 @@ export default function Header() {
       <a
         href="#intro"
         data-testid="wordmark"
-        className="pointer-events-auto font-display text-lg tracking-tight text-white hover:text-ice transition-colors"
+        className="pointer-events-auto font-display text-lg tracking-tight text-night hover:text-ice transition-colors"
       >
         {PROFILE.name.split(' ')[0]}
         <span className="text-ice">.</span>
@@ -19,7 +19,7 @@ export default function Header() {
       <a
         href="#contact"
         data-testid="header-contact"
-        className="pointer-events-auto text-xs tracking-widest2 uppercase glass rounded-full px-4 py-2 text-white hover:text-ice transition-colors"
+        className="pointer-events-auto text-xs tracking-widest2 uppercase glass rounded-full px-4 py-2 text-night hover:text-ice transition-colors"
       >
         Get in touch
       </a>

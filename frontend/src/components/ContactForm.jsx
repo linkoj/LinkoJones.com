@@ -16,7 +16,7 @@ export default function ContactForm() {
           value={form.name}
           onChange={onChange}
           placeholder="Your name"
-          className="glass rounded-xl px-4 py-3 text-sm text-white placeholder-mist/50 focus:outline-none focus:border-ice/60"
+          className="glass rounded-xl px-4 py-3 text-sm text-night placeholder-mist/60 focus:outline-none focus:border-ice/60"
         />
         <input
           data-testid="contact-email"
@@ -26,7 +26,7 @@ export default function ContactForm() {
           value={form.email}
           onChange={onChange}
           placeholder="Email"
-          className="glass rounded-xl px-4 py-3 text-sm text-white placeholder-mist/50 focus:outline-none focus:border-ice/60"
+          className="glass rounded-xl px-4 py-3 text-sm text-night placeholder-mist/60 focus:outline-none focus:border-ice/60"
         />
       </div>
       <textarea
@@ -37,14 +37,14 @@ export default function ContactForm() {
         onChange={onChange}
         rows={3}
         placeholder="Tell me about the role or project…"
-        className="glass rounded-xl px-4 py-3 text-sm text-white placeholder-mist/50 w-full focus:outline-none focus:border-ice/60 resize-none"
+        className="glass rounded-xl px-4 py-3 text-sm text-night placeholder-mist/60 w-full focus:outline-none focus:border-ice/60 resize-none"
       />
       <div className="flex items-center gap-4">
         <button
           data-testid="contact-submit"
           type="submit"
           disabled={status === 'sending' || status === 'done'}
-          className="inline-flex items-center gap-2 rounded-full bg-ice text-ink font-medium text-sm px-6 py-3 hover:bg-white transition-colors disabled:opacity-60"
+          className="inline-flex items-center gap-2 rounded-full bg-ice text-white font-medium text-sm px-6 py-3 hover:bg-[#0040a4] transition-colors disabled:opacity-60"
         >
           {status === 'sending' && <Loader2 className="w-4 h-4 animate-spin" />}
           {status === 'done' && <Check className="w-4 h-4" />}
@@ -60,7 +60,7 @@ export default function ContactForm() {
         </a>
       </div>
       {status === 'error' && (
-        <p data-testid="contact-error" className="text-xs text-red-300">
+        <p data-testid="contact-error" className="text-xs text-gold">
           Something went wrong — email me directly above.
         </p>
       )}

@@ -72,7 +72,7 @@ export default function Nav() {
           </span>
           <span
             className={`block rounded-full transition-all duration-300 ${
-              active === i ? 'w-2.5 h-2.5 bg-ice' : 'w-1.5 h-1.5 bg-white/30 group-hover:bg-white/60'
+              active === i ? 'w-2.5 h-2.5 bg-ice' : 'w-1.5 h-1.5 bg-night/25 group-hover:bg-night/50'
             }`}
           />
         </button>
@@ -107,7 +107,7 @@ export function StepControls() {
         data-testid="step-prev"
         aria-label="Previous section"
         onClick={() => scrollToSection(Math.round(scrollState.progress * (N - 1)) - 1)}
-        className="glass w-10 h-10 rounded-full grid place-items-center text-white/80 hover:text-ice transition-colors"
+        className="glass w-10 h-10 rounded-full grid place-items-center text-night/70 hover:text-ice transition-colors"
       >
         <ChevronUp className="w-4 h-4" />
       </button>
@@ -115,7 +115,7 @@ export function StepControls() {
         data-testid="step-next"
         aria-label="Next section"
         onClick={() => scrollToSection(Math.round(scrollState.progress * (N - 1)) + 1)}
-        className="glass w-10 h-10 rounded-full grid place-items-center text-white/80 hover:text-ice transition-colors"
+        className="glass w-10 h-10 rounded-full grid place-items-center text-night/70 hover:text-ice transition-colors"
       >
         <ChevronDown className="w-4 h-4" />
       </button>

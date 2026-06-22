@@ -89,25 +89,26 @@ export default function TunnelBackground() {
     <div className="fixed inset-0 z-0 overflow-hidden bg-black" aria-hidden="true">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
 
-      {/* vignette + edge darkening for legibility */}
+      {/* White brand scrim — keeps the tunnel as soft motion while copy stays legible */}
+      <div className="absolute inset-0" style={{ background: 'rgba(255,255,255,0.6)' }} />
       <div
         className="absolute inset-0"
         style={{
           background:
-            'radial-gradient(120% 92% at 50% 34%, rgba(0,0,0,0) 20%, rgba(8,4,2,0.55) 64%, rgba(8,4,2,0.9) 100%)',
+            'radial-gradient(120% 95% at 50% 44%, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0) 62%)',
         }}
       />
       <div
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(180deg, rgba(8,4,2,0.7) 0%, rgba(8,4,2,0) 22%, rgba(8,4,2,0) 52%, rgba(8,4,2,0.92) 100%)',
+            'linear-gradient(180deg, rgba(255,255,255,0.58) 0%, rgba(255,255,255,0) 26%, rgba(255,255,255,0) 64%, rgba(255,255,255,0.74) 100%)',
         }}
       />
-      {/* warm flame glow rising from the floor */}
+      {/* subtle brand-blue depth at the edges */}
       <div
-        className="absolute inset-x-0 bottom-0 h-1/2"
-        style={{ background: 'radial-gradient(58% 100% at 50% 100%, rgba(255,90,20,0.22), transparent 72%)' }}
+        className="absolute inset-0"
+        style={{ background: 'radial-gradient(110% 92% at 50% 30%, rgba(0,40,128,0) 56%, rgba(0,40,128,0.10) 100%)' }}
       />
     </div>
   );
