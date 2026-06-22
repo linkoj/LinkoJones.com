@@ -47,6 +47,17 @@ the star; the 3D is the stage.
   (scrollable ~10692px, all sections cross-fade, nav/keyboard/steps, case content +
   images, contact POST 200, responsive). Fixed: fallback nav reading stale progress.
 
+## Navigation & horizontal feel (2026-06-21)
+- Sections now animate HORIZONTALLY: GSAP slides each panel in from the right
+  (xPercent +18) and out to the left (-18) instead of vertical — gives a
+  "scrolling sideways" feel while the page still scrolls vertically.
+- Replaced the right-side dot rail with: a blue brand BOTTOM BAR
+  (`components/Nav.jsx`) holding the LINKO JONES wordmark + condensed section
+  links (Prelude/About/Career/Work/Process/Skills/Contact, each jumps to a
+  section), plus large left/right ARROW buttons on the screen edges for
+  sequential prev/next. Mobile shows wordmark + arrows + an NN/NN indicator.
+- Removed ScrollHint/StepControls; keyboard nav (arrows/Home/End) retained.
+
 ## Theme (2026-06-21, updated to brand light theme)
 - Switched to Linko's brand palette from linkojones.com/new/: primary blue
   `#004bc8` (`ice`), navy `#000826`/text `#0a1230` (`ink`/`night`), red accent

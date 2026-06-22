@@ -65,18 +65,20 @@ export default function Overlay() {
         if (!el) return;
         if (i === 0) {
           // First section is visible at the very top (scroll progress 0).
-          gsap.set(el, { autoAlpha: 1, y: 0 });
+          gsap.set(el, { autoAlpha: 1, xPercent: 0 });
         } else {
-          gsap.set(el, { autoAlpha: 0, y: 60 });
+          // Sections slide IN from the right…
+          gsap.set(el, { autoAlpha: 0, xPercent: 18 });
           tl.fromTo(
             el,
-            { autoAlpha: 0, y: 60 },
-            { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power2.out' },
+            { autoAlpha: 0, xPercent: 18 },
+            { autoAlpha: 1, xPercent: 0, duration: 0.5, ease: 'power2.out' },
             i
           );
         }
+        // …and OUT to the left, creating a horizontal travel feel.
         if (i < N - 1) {
-          tl.to(el, { autoAlpha: 0, y: -60, duration: 0.5, ease: 'power2.in' }, i + 0.7);
+          tl.to(el, { autoAlpha: 0, xPercent: -18, duration: 0.5, ease: 'power2.in' }, i + 0.7);
         }
       });
 

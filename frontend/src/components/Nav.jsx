@@ -1,9 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { ChevronUp, ChevronDown } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { scrollState } from '../state/scroll';
-import { SECTIONS } from '../data/content';
+import { SECTIONS, PROFILE } from '../data/content';
 
 const N = SECTIONS.length;
+
+// Condensed bottom-bar links (each jumps to a representative section).
+const NAV_LINKS = [
+  { id: 'intro', label: 'Prelude' },
+  { id: 'about', label: 'About' },
+  { id: 'experience', label: 'Career' },
+  { id: 'case-1', label: 'Work' },
+  { id: 'process', label: 'Process' },
+  { id: 'skills', label: 'Skills' },
+  { id: 'contact', label: 'Contact' },
+].map((l) => ({ ...l, idx: SECTIONS.findIndex((s) => s.id === l.id) }));
 
 function scrollToSection(i) {
   const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -26,7 +37,6 @@ export default function Nav() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Keyboard navigation between stations.
   useEffect(() => {
     const onKey = (e) => {
       const cur = Math.round(scrollState.progress * (N - 1));
@@ -49,76 +59,68 @@ export default function Nav() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
-    <nav
-      aria-label="Section navigation"
-      className="fixed right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 flex flex-col items-end gap-3"
-    >
-      {SECTIONS.map((s, i) => (
-        <button
-          key={s.id}
-          data-testid={`nav-dot-${s.id}`}
-          onClick={() => scrollToSection(i)}
-          aria-label={`Go to ${s.label}`}
-          aria-current={active === i}
-          className="group flex items-center gap-3 focus:outline-none"
-        >
-          <span
-            className={`text-[10px] uppercase tracking-widest2 transition-all duration-300 ${
-              active === i ? 'text-ice opacity-100' : 'text-mist opacity-0 group-hover:opacity-70'
-            }`}
-          >
-            {s.label}
-          </span>
-          <span
-            className={`block rounded-full transition-all duration-300 ${
-              active === i ? 'w-2.5 h-2.5 bg-ice' : 'w-1.5 h-1.5 bg-night/25 group-hover:bg-night/50'
-            }`}
-          />
-        </button>
-      ))}
-    </nav>
-  );
-}
+  const activeLinkId =
+    [...NAV_LINKS].reverse().find((l) => l.idx <= active)?.id || NAV_LINKS[0].id;
 
-export function ScrollHint() {
-  const [gone, setGone] = useState(false);
-  useEffect(() => {
-    const onScroll = () => {
-      if (window.scrollY > 40) setGone(true);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  if (gone) return null;
-  return (
-    <div className="fixed bottom-7 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center gap-2 text-mist/70 pointer-events-none">
-      <span className="text-[10px] uppercase tracking-widest2">Scroll to drive through</span>
-      <ChevronDown className="w-4 h-4 animate-bounce" />
-    </div>
-  );
-}
+  const go = (dir) => scrollToSection(Math.round(scrollState.progress * (N - 1)) + dir);
 
-export function StepControls() {
   return (
-    <div className="fixed bottom-6 right-4 md:right-8 z-30 flex flex-col gap-2">
+    <>
+      {/* Edge arrows — sequential horizontal navigation */}
       <button
-        data-testid="step-prev"
+        data-testid="nav-prev"
         aria-label="Previous section"
-        onClick={() => scrollToSection(Math.round(scrollState.progress * (N - 1)) - 1)}
-        className="glass w-10 h-10 rounded-full grid place-items-center text-night/70 hover:text-ice transition-colors"
+        onClick={() => go(-1)}
+        className="fixed left-3 md:left-6 top-1/2 -translate-y-1/2 z-40 bg-ice text-white w-10 h-20 md:w-12 md:h-24 rounded-xl grid place-items-center hover:bg-[#0040a4] transition-colors disabled:opacity-30"
+        disabled={active === 0}
       >
-        <ChevronUp className="w-4 h-4" />
+        <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.5} />
       </button>
       <button
-        data-testid="step-next"
+        data-testid="nav-next"
         aria-label="Next section"
-        onClick={() => scrollToSection(Math.round(scrollState.progress * (N - 1)) + 1)}
-        className="glass w-10 h-10 rounded-full grid place-items-center text-night/70 hover:text-ice transition-colors"
+        onClick={() => go(1)}
+        className="fixed right-3 md:right-6 top-1/2 -translate-y-1/2 z-40 bg-ice text-white w-10 h-20 md:w-12 md:h-24 rounded-xl grid place-items-center hover:bg-[#0040a4] transition-colors disabled:opacity-30"
+        disabled={active === N - 1}
       >
-        <ChevronDown className="w-4 h-4" />
+        <ChevronRight className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.5} />
       </button>
-    </div>
+
+      {/* Bottom brand bar with section nav */}
+      <div className="fixed bottom-0 inset-x-0 z-40 bg-ice text-white shadow-[0_-10px_40px_rgba(0,40,128,0.25)]">
+        <div className="flex items-center justify-between px-5 md:px-10 h-14 md:h-16">
+          <a
+            href="#intro"
+            data-testid="bottombar-wordmark"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection(0);
+            }}
+            className="font-display text-base md:text-xl tracking-[0.18em] uppercase text-white/95 hover:text-white"
+          >
+            {PROFILE.name}
+          </a>
+          <nav aria-label="Section navigation" className="hidden md:flex items-center gap-6 lg:gap-10">
+            {NAV_LINKS.map((l) => (
+              <button
+                key={l.id}
+                data-testid={`nav-link-${l.id}`}
+                onClick={() => scrollToSection(l.idx)}
+                aria-current={activeLinkId === l.id}
+                className={`font-display text-sm lg:text-base tracking-wide transition-colors ${
+                  activeLinkId === l.id ? 'text-white' : 'text-white/55 hover:text-white/90'
+                }`}
+              >
+                {l.label}
+              </button>
+            ))}
+          </nav>
+          {/* Mobile: compact position indicator */}
+          <span className="md:hidden text-xs tracking-widest2 text-white/80">
+            {String(active + 1).padStart(2, '0')} / {String(N).padStart(2, '0')}
+          </span>
+        </div>
+      </div>
+    </>
   );
 }

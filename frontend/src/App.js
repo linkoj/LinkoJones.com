@@ -4,7 +4,7 @@ import Scene from './three/Scene';
 import TunnelBackground from './components/TunnelBackground';
 import Overlay from './components/Overlay';
 import Header from './components/Header';
-import Nav, { ScrollHint, StepControls } from './components/Nav';
+import Nav from './components/Nav';
 import Loader from './components/Loader';
 import useIsMobile, { prefersReducedMotion } from './hooks/useIsMobile';
 import { SECTIONS } from './data/content';
@@ -70,8 +70,6 @@ export default function App() {
       <Header />
       <Overlay />
       <Nav />
-      <StepControls />
-      <ScrollHint />
 
       {/* Scroll length driver — creates the journey distance */}
       <div id="scroll-spacer" style={{ height: `${SECTIONS.length * SECTION_SCROLL_VH}vh` }} aria-hidden="true" />
