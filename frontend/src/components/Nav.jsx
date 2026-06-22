@@ -92,13 +92,27 @@ export default function Nav() {
           <a
             href="#intro"
             data-testid="bottombar-wordmark"
+            aria-label={PROFILE.name}
             onClick={(e) => {
               e.preventDefault();
               scrollToSection(0);
             }}
-            className="font-display text-base md:text-xl tracking-[0.18em] uppercase text-white/95 hover:text-white"
+            className="group relative flex items-center h-8 md:h-9"
           >
-            {PROFILE.name}
+            {/* Compact LJ mark — default */}
+            <img
+              src="/logo-mark-t.png"
+              alt=""
+              data-testid="logo-mark"
+              className="h-full w-auto object-contain transition-all duration-500 ease-out group-hover:opacity-0"
+            />
+            {/* Full wordmark — reveals on hover, expanding from the left */}
+            <img
+              src="/logo-full.png"
+              alt={PROFILE.name}
+              data-testid="logo-full"
+              className="absolute left-0 top-0 h-full w-auto max-w-none origin-left object-contain opacity-0 scale-x-95 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:scale-x-100"
+            />
           </a>
           <nav aria-label="Section navigation" className="hidden md:flex items-center gap-6 lg:gap-10">
             {NAV_LINKS.map((l) => (

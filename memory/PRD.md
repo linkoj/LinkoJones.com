@@ -104,6 +104,15 @@ the star; the 3D is the stage.
 - `?no3d` — render CSS fallback instead of WebGL canvas.
 - `?nointro` — skip the boot loader.
 
+## Bottom-nav logo (2026-06-22)
+- Replaced the text wordmark in the bottom bar (`components/Nav.jsx`) with the brand
+  logo: compact **LJ mark** (`public/logo-mark-t.png`) shown by default, cross-fades/
+  expands into the full **"LINKO JONOO"** wordmark (`public/logo-full.png`) on hover.
+- `logo-mark.png` shipped with a solid `#004bc8` background; pre-processed via Pillow
+  into `logo-mark-t.png` (white LJ on transparent) so it stays clean on the bar blue
+  and the darker hover-blue. Logo still jumps to intro on click.
+- Verified via screenshot tool: default (compact LJ) and hover (full wordmark) states.
+
 ## Backlog / Next
 - P1: Per-case detail view (deep dive: process artifacts, before/after).
 - P1: Real content + headshot/resume PDF; replace placeholder "Maya Chen".
