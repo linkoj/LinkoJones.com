@@ -138,3 +138,42 @@ html {
     transform: scaleX(1);
   }
 }
+
+/* Expanding logo: LJ monogram unveils into the full wordmark */
+.logo-reveal {
+  position: relative;
+  height: 1.75rem;
+  aspect-ratio: 3378 / 602;
+  display: block;
+}
+@media (min-width: 768px) {
+  .logo-reveal {
+    height: 2rem;
+  }
+}
+.logo-reveal__mark {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 132%;
+  width: auto;
+  transform: translateY(-50%);
+  transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.logo-reveal:hover .logo-reveal__mark {
+  opacity: 0;
+  transform: translateY(-50%) scale(0.85);
+}
+.logo-reveal__part {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: auto;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.logo-reveal:hover .logo-reveal__part {
+  clip-path: inset(0 0 0 0);
+}
+.logo-reveal__part--1 { left: 3.02%; }
+.logo-reveal__part--2 { left: 46.57%; }

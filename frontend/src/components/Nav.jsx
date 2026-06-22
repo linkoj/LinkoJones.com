@@ -97,21 +97,28 @@ export default function Nav() {
               e.preventDefault();
               scrollToSection(0);
             }}
-            className="group relative flex items-center h-8 md:h-9"
+            className="logo-reveal"
           >
-            {/* Compact LJ mark — default */}
+            {/* Compact LJ monogram — default, fades out on hover */}
             <img
               src="/logo-mark-t.png"
               alt=""
               data-testid="logo-mark"
-              className="h-full w-auto object-contain transition-all duration-500 ease-out group-hover:opacity-0"
+              className="logo-reveal__mark"
             />
-            {/* Full wordmark — reveals on hover, expanding from the left */}
+            {/* "LINKO" — wipes open left-to-right on hover */}
             <img
-              src="/logo-full.png"
+              src="/lj-pt1.png"
               alt={PROFILE.name}
               data-testid="logo-full"
-              className="absolute left-0 top-0 h-full w-auto max-w-none origin-left object-contain opacity-0 scale-x-95 transition-all duration-500 ease-out group-hover:opacity-100 group-hover:scale-x-100"
+              className="logo-reveal__part logo-reveal__part--1"
+            />
+            {/* "JONOO" — wipes open left-to-right on hover */}
+            <img
+              src="/lj-pt2.png"
+              alt=""
+              aria-hidden="true"
+              className="logo-reveal__part logo-reveal__part--2"
             />
           </a>
           <nav aria-label="Section navigation" className="hidden md:flex items-center gap-6 lg:gap-10">
