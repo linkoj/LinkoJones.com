@@ -106,20 +106,11 @@ export default function Nav() {
               data-testid="logo-mark"
               className="logo-reveal__mark"
             />
-            {/* "LINKO" — wipes open left-to-right on hover */}
-            <img
-              src="/lj-pt1.png"
-              alt={PROFILE.name}
-              data-testid="logo-full"
-              className="logo-reveal__part logo-reveal__part--1"
-            />
-            {/* "JONOO" — wipes open left-to-right on hover */}
-            <img
-              src="/lj-pt2.png"
-              alt=""
-              aria-hidden="true"
-              className="logo-reveal__part logo-reveal__part--2"
-            />
+            {/* Words unveil left-to-right (L→INKO, J→ONOO) simultaneously */}
+            <span className="logo-reveal__words" aria-hidden="true">
+              <img src="/lj-linko.png" alt="" data-testid="logo-full" className="logo-reveal__part" />
+              <img src="/lj-jonoo.png" alt="" className="logo-reveal__part" />
+            </span>
           </a>
           <nav aria-label="Section navigation" className="hidden md:flex items-center gap-6 lg:gap-10">
             {NAV_LINKS.map((l) => (
