@@ -1,0 +1,39 @@
+{
+  "summary": "End-to-end frontend testing of new portfolio features (case study deep-dive modal, About headshot + Download CV, Read CV in contact). 15/16 checks pass. The only failure is the About headshot: PROFILE.photo is still null in /app/frontend/src/data/content.js, so the <img data-testid='about-photo' src='/linko.jpg'> never renders — the monogram fallback shows instead. The /linko.jpg asset itself is correctly served (HTTP 200, image/jpeg, 37,649 bytes) and exists in /app/frontend/public/linko.jpg; only the wiring in content.js is missing. Everything else in the review request works as specified.",
+  "backend_issues": { "critical": [], "minor": [] },
+  "frontend_issues": {
+    "ui_bugs": [
+      {
+        "component": "AboutSection (data/content.js PROFILE.photo)",
+        "issue": "PROFILE.photo is null in /app/frontend/src/data/content.js, so AboutSection renders the monogram 'LJ' placeholder instead of the <img data-testid='about-photo' src='/linko.jpg'>. The asset exists at /app/frontend/public/linko.jpg and is served with HTTP 200 + image/jpeg, but it is never referenced because content.js still has `photo: null`. One-line fix: change `photo: null` -> `photo: '/linko.jpg'`.",
+        "selector": "[data-testid='about-photo']",
+        "priority": "HIGH"
+      }
+    ],
+    "integration_issues": [],
+    "design_issues": []
+  },
+  "test_report_links": [
+    "/app/backend/tests/backend_test.py",
+    "/app/test_reports/pytest/pytest_results.xml",
+    "/app/test_reports/iteration_1.json"
+  ],
+  "action_items": [
+    "In /app/frontend/src/data/content.js set `PROFILE.photo = '/linko.jpg'` (currently null) so the About section renders the data-testid='about-photo' image instead of the monogram fallback. The file is already in /app/frontend/public/linko.jpg and serves 200 image/jpeg.",
+    "(Optional, low priority) The review request listed `nav-link-work` as a bottom-bar testid, but the actual generated testid is `nav-link-case-1` (label text is still 'Work'). The agent-to-agent context note in the request already acknowledged this. If you want the testid to literally be `nav-link-work`, you'd need to add a label-derived alias in /app/frontend/src/components/Nav.jsx; otherwise tests should target `nav-link-case-1`."
+  ],
+  "critical_code_review_comments": [
+    "content.js: PROFILE.photo is still hard-coded to null even though /linko.jpg is now shipped in public/. This is the single-line miss behind the about-photo regression.",
+    "Nav.jsx NAV_LINKS uses section ids for testids (`nav-link-${l.id}`), which gives `nav-link-case-1` for the 'Work' link. Slightly counter-intuitive — consider deriving the testid from the label slug (`nav-link-work`) for clearer test contracts.",
+    "CaseModal closes on Escape via a window keydown listener that is attached on mount and never gated on `data`. It is benign (caseModal.close() is a no-op when nothing is open), but adding an `if (!data) return` guard inside the handler would prevent unrelated Escape presses from invoking the store.",
+    "caseModal.open/close mutates document.body.style.overflow directly. If a user navigates away while the modal is open (e.g. via deep-link routing later), the scroll lock would leak. Currently fine because the app has no router."
+  ],
+  "updated_files": [],
+  "success_rate": { "backend": "n/a (skipped per request)", "frontend": "~94% (15/16 checks)" },
+  "test_credentials": "n/a (no auth)",
+  "seed_data_creation": "Added one TEST_E2E contact row via POST /api/contact during the contact-form flow check. Safe to ignore — flagged with TEST_ prefix.",
+  "retest_needed": true,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "After main agent flips PROFILE.photo to '/linko.jpg', re-verify just the About section: scroll to section-about (~1/8 of maxScroll) and confirm `document.querySelector('[data-testid=about-photo]').naturalWidth > 0` and src ends with '/linko.jpg'. All other flows already pass: deep-dive modal (case-open-01/02/03) opens with overview + 'The work' (3 step images all loaded) + 'Highlights' (3 chips) + 'Outcome' + tags, closes via case-modal-close button, Escape key, and dark-backdrop click; body.style.overflow is locked to 'hidden' while open and restored to '' after close. Nav prev-arrow is disabled at intro, next-arrow advances, bottom-bar links (nav-link-intro/about/experience/case-1/process/skills/contact) jump correctly, keyboard ArrowDown/ArrowUp/Home/End all change scrollY. Tunnel <canvas> pixel fingerprints at 0%/50%/95% differ (canvas scrubs). Section panels apply translateX (xPercent) during scroll — horizontal motion confirmed via computed transform matrices. Contact form POST /api/contact -> 200 with 'Message sent' confirmation, and a 'Read CV' link is present in the contact links list. The /linko.jpg asset returns 200 image/jpeg.",
+  "rca of the issue": "About headshot regression: the new headshot file was added to /app/frontend/public/linko.jpg (and is served correctly by the dev server with HTTP 200, content-type image/jpeg, 37,649 bytes), but /app/frontend/src/data/content.js still has `photo: null` at PROFILE.photo. AboutSection in /app/frontend/src/components/Sections.jsx renders the <img data-testid='about-photo'> only when PROFILE.photo is truthy; otherwise it falls back to a monogram <div>LJ</div>. So the data-testid='about-photo' element never enters the DOM. Reproduction: open /?nointro, scroll to ~1/8 of maxScroll (section-about), query [data-testid='about-photo'] — returns null. Mitigation: set PROFILE.photo = '/linko.jpg' in content.js (one-line change)."
+}

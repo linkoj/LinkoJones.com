@@ -1,6 +1,7 @@
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, Download } from 'lucide-react';
 import { PROFILE, EXPERIENCE, PROCESS, SKILLS } from '../data/content';
+import { caseModal } from '../state/caseModal';
 import ContactForm from './ContactForm';
 
 const Kicker = ({ children }) => (
@@ -43,21 +44,51 @@ export function IntroSection() {
 export function AboutSection() {
   return (
     <Panel align="end" wide>
-      <Kicker>About</Kicker>
-      <h2 className="font-display text-3xl md:text-5xl leading-tight tracking-tight">
-        I design usable products by seeing a problem from every angle.
-      </h2>
-      <p className="mt-6 text-mist leading-relaxed">
-        Across insurance, banking and investment platforms, I've designed the services and
-        interfaces people rely on — pairing rigorous user research with a developer's sense of
-        what's actually buildable. Being exposed to the whole business process taught me why
-        user experience has to be done with laser-like precision, and keeping an open mind is how
-        well thought-out, usable products come to life.
-      </p>
-      <div className="mt-8 flex flex-wrap gap-3 text-sm">
-        {['UX Consultant', 'Research-led', 'Design systems', 'Front-end fluent'].map((t) => (
-          <span key={t} className="glass rounded-full px-4 py-2 text-mist">{t}</span>
-        ))}
+      <div className="flex flex-col sm:flex-row gap-6 sm:gap-8 items-start" data-anim>
+        <div className="shrink-0">
+          {PROFILE.photo ? (
+            <img
+              src={PROFILE.photo}
+              alt={PROFILE.name}
+              data-testid="about-photo"
+              className="w-24 h-24 md:w-32 md:h-32 rounded-2xl object-cover border border-night/10 shadow-lg"
+            />
+          ) : (
+            <div
+              className="w-24 h-24 md:w-32 md:h-32 rounded-2xl grid place-items-center font-display text-2xl text-white"
+              style={{ background: 'linear-gradient(135deg,#004bc8,#5f8ce7)' }}
+            >
+              LJ
+            </div>
+          )}
+        </div>
+        <div>
+          <Kicker>About</Kicker>
+          <h2 className="font-display text-3xl md:text-5xl leading-tight tracking-tight">
+            I design usable products by seeing a problem from every angle.
+          </h2>
+          <p className="mt-6 text-mist leading-relaxed">
+            Across insurance, banking and investment platforms, I've designed the services and
+            interfaces people rely on — pairing rigorous user research with a developer's sense of
+            what's actually buildable. Being exposed to the whole business process taught me why
+            user experience has to be done with laser-like precision, and keeping an open mind is how
+            well thought-out, usable products come to life.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3 text-sm">
+            {['UX Consultant', 'Research-led', 'Design systems', 'Front-end fluent'].map((t) => (
+              <span key={t} className="glass rounded-full px-4 py-2 text-mist">{t}</span>
+            ))}
+          </div>
+          <a
+            href={PROFILE.cv}
+            target="_blank"
+            rel="noreferrer"
+            data-testid="about-download-cv"
+            className="mt-7 inline-flex items-center gap-2 rounded-full bg-ice text-white text-sm font-medium px-5 py-2.5 hover:bg-[#0040a4] transition-colors"
+          >
+            <Download className="w-4 h-4" /> Download CV
+          </a>
+        </div>
       </div>
     </Panel>
   );
@@ -122,6 +153,13 @@ export function CaseSection({ data, align }) {
               <span key={t} className="text-[11px] text-mist/70 glass rounded-full px-3 py-1">{t}</span>
             ))}
           </div>
+          <button
+            data-testid={`case-open-${data.index}`}
+            onClick={() => caseModal.open(data)}
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-ice text-white text-sm font-medium px-5 py-2.5 hover:bg-[#0040a4] transition-colors"
+          >
+            View case study <ArrowUpRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
     </div>

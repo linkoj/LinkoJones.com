@@ -8,11 +8,24 @@ export const PROFILE = {
   location: 'Kingswood, Surrey · London',
   email: 'info@linkojones.com',
   availability: 'Available for senior & lead UX roles',
+  photo: null, // ← drop in a headshot URL to replace the monogram
+  cv: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/25zhv1cr_CV%20-%20Linko%20Jones%2BLinko%20Jones%20UX%20Portfolio%202025-compressed.pdf',
   links: [
     { label: 'LinkedIn', href: 'https://uk.linkedin.com/in/linkojones' },
     { label: 'linkojones.com', href: 'https://linkojones.com' },
+    { label: 'Read CV', href: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/25zhv1cr_CV%20-%20Linko%20Jones%2BLinko%20Jones%20UX%20Portfolio%202025-compressed.pdf' },
     { label: 'Email', href: 'mailto:info@linkojones.com' },
   ],
+};
+
+// Shared UX process artifacts used inside the case-study deep-dives.
+const ART = {
+  research:
+    'https://static.prod-images.emergentagent.com/jobs/93a24390-dc14-4ba6-9cbc-17b819b59f52/images/e72b5d2118cf137144bc2a7032c58bbdee8e0325c95fc1e904a007f912deaf7a.png',
+  wireframe:
+    'https://static.prod-images.emergentagent.com/jobs/93a24390-dc14-4ba6-9cbc-17b819b59f52/images/7cf792ef49f5066ed0d974b9375dda2fa2e23cbe68713ca5c48ba48b898e6f82.png',
+  usability:
+    'https://static.prod-images.emergentagent.com/jobs/93a24390-dc14-4ba6-9cbc-17b819b59f52/images/127329c9e4e12d712bf7f4aeba91d87216acc70d3dd58eeee73bceaf861cc9b3.png',
 };
 
 const CASES = [
@@ -35,6 +48,17 @@ const CASES = [
       { value: 'New framework', label: 'Visual system' },
     ],
     tags: ['User research', 'Personas', 'Prototyping', 'Service design'],
+    deepDive: {
+      overview:
+        'A service-led rethink of the Bank of Ireland mobile app, designed to help customers stay ahead of financial difficulty rather than react to it.',
+      steps: [
+        { title: 'Discover', text: 'Stakeholder workshops, customer interviews and analytics revealed where people dropped out of the journey and where the process felt like an interrogation.', image: ART.research },
+        { title: 'Define & design', text: 'I built personas and journeys, then designed a chatbot-led service layer and rebuilt the core flows on the bank’s new design framework for tablet and mobile.', image: ART.wireframe },
+        { title: 'Validate', text: 'Prototypes were tested with customers and refined alongside the support team so the experience matched real conversations.', image: ART.usability },
+      ],
+      outcome:
+        'A warmer, more proactive banking experience that treats support as a feature, not an afterthought.',
+    },
   },
   {
     index: '02',
@@ -55,6 +79,17 @@ const CASES = [
       { value: 'Usability-tested', label: 'Validation' },
     ],
     tags: ['Underwriting', 'Pega', 'Automation', 'Usability testing'],
+    deepDive: {
+      overview:
+        'Turning a complex, Pega-driven underwriting platform into an intuitive workflow where automation does the heavy lifting.',
+      steps: [
+        { title: 'Discover', text: 'Interviews with the day-to-day operations team surfaced the manual steps and the mental models underwriters actually use.', image: ART.research },
+        { title: 'Explore & design', text: 'I tested new navigation and screen-flow concepts, then evolved the strongest into a full solution on the QBE NorthStar system.', image: ART.wireframe },
+        { title: 'Validate', text: 'Usability testing confirmed the workflow held up under real underwriting scenarios before hand-off to engineering.', image: ART.usability },
+      ],
+      outcome:
+        'A clearer, faster underwriting experience that lets specialists focus on judgement, not data entry.',
+    },
   },
   {
     index: '03',
@@ -75,6 +110,17 @@ const CASES = [
       { value: 'CPD learning', label: 'New product' },
     ],
     tags: ['B2B', 'Design system', 'Research', 'Dynamics 365'],
+    deepDive: {
+      overview:
+        'A secure portal and CPD learning experience for financial professionals, built as Vanguard migrated to Dynamics 365.',
+      steps: [
+        { title: 'Discover', text: 'Research with financial professionals shaped personas and scenarios, kept in sync with the Vanguard brand.', image: ART.research },
+        { title: 'Design', text: 'I designed a secure B2B portal and a CPD learning portal that surfaces signals and insights for the sales teams.', image: ART.wireframe },
+        { title: 'Deliver', text: 'Designs were prepared for development within Dynamics 365 and validated with stakeholders along the way.', image: ART.usability },
+      ],
+      outcome:
+        'A trusted, on-brand portal that turns learning and data into an everyday advantage for professionals.',
+    },
   },
 ];
 
