@@ -47,6 +47,18 @@ the star; the 3D is the stage.
   (scrollable ~10692px, all sections cross-fade, nav/keyboard/steps, case content +
   images, contact POST 200, responsive). Fixed: fallback nav reading stale progress.
 
+## Deep-dives, headshot & CV (2026-06-21)
+- About now shows Linko's real headshot (`public/linko.jpg`, cropped from CV PG9)
+  with a monogram fallback, plus a "Download CV" button. PROFILE.cv + a "Read CV"
+  link wired to the uploaded CV PDF; linkojones.com/LinkedIn links live.
+- Each case study has a "View case study" button → deep-dive MODAL
+  (`components/CaseModal.jsx` + `state/caseModal.js`): overview → "The work"
+  (3 process steps each with a generated brand-blue artifact image) → highlights →
+  outcome → tags. Closes via button / Escape / backdrop; locks body scroll.
+- Verified (testing iteration_3): 16/16 after the PROFILE.photo fix — modal opens/
+  closes (all 3 ways), step images load, About photo renders, CV/Read CV links,
+  nav + horizontal motion + tunnel scrub + contact POST all pass.
+
 ## Navigation & horizontal feel (2026-06-21)
 - Sections now animate HORIZONTALLY: GSAP slides each panel in from the right
   (xPercent +18) and out to the left (-18) instead of vertical — gives a

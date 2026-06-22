@@ -9,7 +9,7 @@ export default function CaseModal() {
 
   useEffect(() => {
     const onKey = (e) => {
-      if (e.key === 'Escape') caseModal.close();
+      if (e.key === 'Escape' && caseModal.get()) caseModal.close();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);

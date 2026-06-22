@@ -8,7 +8,7 @@ export const PROFILE = {
   location: 'Kingswood, Surrey · London',
   email: 'info@linkojones.com',
   availability: 'Available for senior & lead UX roles',
-  photo: null, // ← drop in a headshot URL to replace the monogram
+  photo: '/linko.jpg', // extracted from the CV (PG9). Swap for any preferred headshot.
   cv: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/25zhv1cr_CV%20-%20Linko%20Jones%2BLinko%20Jones%20UX%20Portfolio%202025-compressed.pdf',
   links: [
     { label: 'LinkedIn', href: 'https://uk.linkedin.com/in/linkojones' },
