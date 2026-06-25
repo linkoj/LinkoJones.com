@@ -3,6 +3,7 @@ import { ArrowUpRight, Download } from 'lucide-react';
 import { PROFILE, EXPERIENCE, PROCESS, SKILLS } from '../data/content';
 import { caseModal } from '../state/caseModal';
 import ContactForm from './ContactForm';
+import AuditForm from './AuditForm';
 
 const Kicker = ({ children }) => (
   <div className="kicker text-ice/80 mb-4" data-anim>{children}</div>
@@ -36,6 +37,7 @@ export function IntroSection() {
         <p className="mt-4 text-sm text-mist/60">
           A drive through the work, the decisions behind it, and the outcomes they shaped.
         </p>
+        <AuditForm />
       </div>
     </div>
   );

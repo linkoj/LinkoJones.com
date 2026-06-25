@@ -113,6 +113,29 @@ the star; the 3D is the stage.
   and the darker hover-blue. Logo still jumps to intro on click.
 - Verified via screenshot tool: default (compact LJ) and hover (full wordmark) states.
 
+## LinkoJones UX Audit Tool (2026-06-25)
+- New lead-gen feature: a URL input under the hero tagline (`components/AuditForm.jsx`,
+  with an optional "Add context" toggle for industry + business goal) generates a
+  professional UX audit via AI.
+- Backend (`backend/audit.py` + `/api/audit` routes): server-side fetches the page
+  (httpx + BeautifulSoup → title, headings, nav, forms, alt-text gaps, word count,
+  body excerpt) and feeds those grounding signals to **Claude Sonnet 4.6**
+  (emergentintegrations, EMERGENT_LLM_KEY, streaming) with a strict consultancy
+  system prompt covering the proprietary 10-step framework (Evidence→Execution).
+  Returns strict JSON (10 steps each with findings/issues/opportunities + confidence
+  & priority, executive summary, impact map, suggested next action).
+- Async pattern: POST /api/audit creates a `audits` Mongo doc (status=processing) +
+  BackgroundTask; GET /api/audit/{id} polled by the client every 2.5s. Generation
+  takes ~85-90s. Saved + shareable via deep-link `/?audit=<id>` (App.js opens modal).
+- `components/AuditModal.jsx`: cinematic loading stepper (10 framework chips pulse),
+  full report render, error state; "Discuss this with LinkoJones" CTA scrolls to
+  contact. Tone = senior consultancy using AI as accelerator (never "as an AI").
+- Verified manually: form + context toggle render; loading modal; full report
+  (airbnb.com — grounded findings on alt-text/H1/hydration/social-proof); deep-link
+  share loads a saved report; backend via external URL returns 200.
+- NOTE: in preview, editing backend files hot-reloads uvicorn and kills in-flight
+  audit BackgroundTasks; not an issue in production (no --reload).
+
 ## Backlog / Next
 - P1: Per-case detail view (deep dive: process artifacts, before/after).
 - P1: Real content + headshot/resume PDF; replace placeholder "Maya Chen".

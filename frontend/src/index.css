@@ -182,3 +182,12 @@ html {
 .logo-reveal:hover .logo-reveal__mark {
   opacity: 0;
 }
+
+/* UX Audit loading stepper pulse */
+@keyframes auditpulse {
+  0%, 100% { opacity: 0.45; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); border-color: rgba(0,75,200,0.5); color: #004bc8; }
+}
+.audit-pulse {
+  animation: auditpulse 1.6s ease-in-out infinite;
+}

@@ -6,10 +6,12 @@ import Overlay from './components/Overlay';
 import Header from './components/Header';
 import Nav from './components/Nav';
 import CaseModal from './components/CaseModal';
+import AuditModal from './components/AuditModal';
 import Loader from './components/Loader';
 import useIsMobile, { prefersReducedMotion } from './hooks/useIsMobile';
 import { SECTIONS } from './data/content';
 import { SECTION_SCROLL_VH, SCENE_MOUNT_DELAY_MS } from './config';
+import { auditStore } from './state/audit';
 
 function detectRenderer() {
   try {
@@ -45,6 +47,13 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    // Deep-link: /?audit=<id> opens a shared audit report.
+    const id = new URLSearchParams(window.location.search).get('audit');
+    if (id) auditStore.open(id);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <div className="grain">
       {!skipIntro && <Loader />}
@@ -72,6 +81,7 @@ export default function App() {
       <Overlay />
       <Nav />
       <CaseModal />
+      <AuditModal />
 
       {/* Scroll length driver — creates the journey distance */}
       <div id="scroll-spacer" style={{ height: `${SECTIONS.length * SECTION_SCROLL_VH}vh` }} aria-hidden="true" />
