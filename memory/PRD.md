@@ -200,6 +200,17 @@ the star; the 3D is the stage.
 - Resend sender switched to verified `hello@linkojones.com` (SENDER_EMAIL in backend/.env)
   now that the user verified the linkojones.com domain — real visitor delivery enabled.
 
+## Music fix (self-hosted) + new nav emblem (2026-06-26)
+- Background music was broken because AudioToggle referenced external
+  https://linkojones.com/audio/Weathermix.* — that domain now serves THIS deployed app,
+  so the old site's audio files 404 (return SPA HTML). Fixed by self-hosting the track
+  at frontend/public/audio/ in 3 compressed formats (ogg/m4a/mp3, 64k, ~38MB total via
+  ffmpeg; original was a 28-min, 33MB-per-format file). AudioToggle now uses relative
+  /audio/Weathermix.{ogg,m4a,mp3} sources. Verified playback after gesture (streams via
+  206 range requests). Won't break on future deploys.
+- Bottom-nav emblem replaced with LinkoJones_WebEmblem (black→transparent so white
+  monogram reads on the blue bar) → public/nav-emblem.png, referenced in Nav.jsx.
+
 ## Backlog / Next
 - P1: Per-case detail view (deep dive: process artifacts, before/after).
 - P1: Real content + headshot/resume PDF; replace placeholder "Maya Chen".

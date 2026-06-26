@@ -46,8 +46,9 @@ export default function AudioToggle() {
   return (
     <>
       <audio ref={audioRef} loop preload="auto">
-        <source src="https://linkojones.com/audio/Weathermix.ogg" type="audio/ogg" />
-        <source src="https://linkojones.com/audio/Weathermix.mp3" type="audio/mpeg" />
+        <source src="/audio/Weathermix.ogg" type="audio/ogg" />
+        <source src="/audio/Weathermix.m4a" type="audio/mp4" />
+        <source src="/audio/Weathermix.mp3" type="audio/mpeg" />
       </audio>
       <button
         type="button"
