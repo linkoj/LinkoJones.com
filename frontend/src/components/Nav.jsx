@@ -101,7 +101,7 @@ export default function Nav() {
           >
             {/* Compact LJ monogram — default, fades out on hover */}
             <img
-              src="/logo-mark-t.png"
+              src="/nav-emblem.png"
               alt=""
               data-testid="logo-mark"
               className="logo-reveal__mark"
