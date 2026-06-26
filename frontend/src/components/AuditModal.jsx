@@ -27,7 +27,7 @@ const List = ({ items, icon: Icon, tone }) =>
   items && items.length ? (
     <ul className="space-y-1.5 mt-2">
       {items.map((t, i) => (
-        <li key={i} className="flex gap-2 text-sm text-night/80 leading-relaxed">
+        <li key={`${t}-${i}`} className="flex gap-2 text-sm text-night/80 leading-relaxed">
           <Icon className={`w-4 h-4 mt-0.5 shrink-0 ${tone}`} />
           <span>{t}</span>
         </li>
@@ -174,7 +174,7 @@ function Report({ report, input, id }) {
     window.scrollTo({ top: max, behavior: 'smooth' });
   };
   const share = async () => {
-    try { await navigator.clipboard.writeText(window.location.href); } catch (e) { /* noop */ }
+    try { await navigator.clipboard.writeText(window.location.href); } catch (err) { console.warn('Clipboard copy failed:', err); }
   };
   return (
     <div className="p-6 md:p-9 space-y-8" data-testid="audit-report">
@@ -193,7 +193,7 @@ function Report({ report, input, id }) {
           <div className="kicker text-ice mb-3">Executive summary</div>
           <ul className="space-y-2">
             {report.executiveSummary.map((b, i) => (
-              <li key={i} className="flex gap-2 text-sm text-night/85 leading-relaxed">
+              <li key={`${b}-${i}`} className="flex gap-2 text-sm text-night/85 leading-relaxed">
                 <span className="text-ice mt-1">—</span><span>{b}</span>
               </li>
             ))}

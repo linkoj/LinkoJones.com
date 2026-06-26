@@ -102,6 +102,7 @@ export default function TunnelBackground() {
       window.removeEventListener('resize', resize);
       interactions.forEach((e) => window.removeEventListener(e, goScroll));
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

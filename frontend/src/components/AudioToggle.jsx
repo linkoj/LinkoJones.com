@@ -29,6 +29,7 @@ export default function AudioToggle() {
     const cleanup = () => events.forEach((e) => window.removeEventListener(e, onGesture));
     events.forEach((e) => window.addEventListener(e, onGesture, { passive: true }));
     return cleanup;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const toggle = () => {

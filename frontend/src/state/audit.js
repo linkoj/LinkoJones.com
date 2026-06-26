@@ -42,7 +42,9 @@ export const auditStore = {
         try {
           const err = await res.json();
           if (err && err.detail) detail = err.detail;
-        } catch (e) { /* noop */ }
+        } catch (parseErr) {
+          console.warn('Audit error response was not JSON:', parseErr);
+        }
         throw new Error(detail);
       }
       const data = await res.json();
@@ -51,7 +53,9 @@ export const auditStore = {
         const u = new URL(window.location.href);
         u.searchParams.set('audit', data.id);
         window.history.replaceState({}, '', u);
-      } catch (e) { /* noop */ }
+      } catch (urlErr) {
+        console.warn('Could not update the URL with the audit id:', urlErr);
+      }
       this._poll(data.id);
     } catch (e) {
       this.set({ status: 'error', error: e.message });
