@@ -1,8 +1,10 @@
-import React, { useEffect, useSyncExternalStore } from 'react';
+import React, { useEffect, useState, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ArrowRight, AlertTriangle, Lightbulb, CheckCircle2, Zap, Layers, Share2 } from 'lucide-react';
+import { X, ArrowRight, AlertTriangle, Lightbulb, CheckCircle2, Zap, Layers, Share2, Mail, Download, Loader2, Check } from 'lucide-react';
 import { auditStore } from '../state/audit';
+
+const API = `${process.env.REACT_APP_BACKEND_URL}/api`;
 
 const FRAMEWORK_NAMES = [
   'Evidence', 'Empathy', 'Exploration', 'Philosophy', 'Creativity',
@@ -84,7 +86,88 @@ function StepCard({ step }) {
   );
 }
 
-function Report({ report, input }) {
+function LeadCapture({ id }) {
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState('idle'); // idle | sending | done | error
+  const [msg, setMsg] = useState('');
+  const pdfUrl = `${API}/audit/${id}/pdf`;
+
+  const submit = async (e) => {
+    e.preventDefault();
+    const value = email.trim();
+    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(value)) {
+      setStatus('error');
+      setMsg('Please enter a valid email address.');
+      return;
+    }
+    setStatus('sending');
+    setMsg('');
+    try {
+      const res = await fetch(`${API}/audit/${id}/lead`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: value, report_url: window.location.href }),
+      });
+      if (!res.ok) throw new Error('Could not send the report. Please try again.');
+      const data = await res.json();
+      setStatus('done');
+      setMsg(data.email_sent ? `Sent to ${value}. The PDF is also ready below.` : `Saved. Your PDF is ready to download below.`);
+    } catch (err) {
+      setStatus('error');
+      setMsg(err.message);
+    }
+  };
+
+  return (
+    <section className="rounded-2xl border border-ice/25 bg-ice/8 p-6 md:p-7" data-testid="audit-lead">
+      <div className="kicker text-ice mb-2">Take this audit with you</div>
+      {status !== 'done' ? (
+        <>
+          <p className="text-sm text-night/80 mb-4 leading-relaxed">
+            Enter your email and we'll send the full audit as a PDF — plus a link you can download or print.
+          </p>
+          <form onSubmit={submit} className="flex flex-col sm:flex-row gap-2">
+            <input
+              data-testid="lead-email-input"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@company.com"
+              className="flex-1 bg-white border border-ice/25 rounded-xl px-4 py-3 text-sm text-night placeholder:text-mist/70 focus:outline-none focus:border-ice"
+            />
+            <button
+              data-testid="lead-submit-btn"
+              type="submit"
+              disabled={status === 'sending'}
+              className="shrink-0 inline-flex items-center justify-center gap-2 bg-ice text-white text-sm font-medium rounded-xl px-5 py-3 hover:bg-[#0040a4] transition-colors disabled:opacity-60"
+            >
+              {status === 'sending' ? <Loader2 className="w-4 h-4 animate-spin" /> : <Mail className="w-4 h-4" />}
+              {status === 'sending' ? 'Sending…' : 'Email me the PDF'}
+            </button>
+          </form>
+          {status === 'error' && <p data-testid="lead-error" className="text-gold text-xs mt-2">{msg}</p>}
+        </>
+      ) : (
+        <div data-testid="lead-success">
+          <p className="flex items-center gap-2 text-sm text-night/85 mb-4">
+            <Check className="w-4 h-4 text-emerald-500" /> {msg}
+          </p>
+          <a
+            href={pdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            data-testid="lead-download-pdf"
+            className="inline-flex items-center gap-2 bg-ice text-white text-sm font-medium rounded-xl px-5 py-3 hover:bg-[#0040a4] transition-colors"
+          >
+            <Download className="w-4 h-4" /> Download / print PDF
+          </a>
+        </div>
+      )}
+    </section>
+  );
+}
+
+function Report({ report, input, id }) {
   const goContact = () => {
     auditStore.close();
     const max = document.documentElement.scrollHeight - window.innerHeight;
@@ -144,6 +227,8 @@ function Report({ report, input }) {
           </button>
         </section>
       )}
+
+      <LeadCapture id={id} />
     </div>
   );
 }
@@ -184,7 +269,7 @@ export default function AuditModal() {
               </button>
 
               {s.status === 'processing' && <Loading url={s.input?.url || 'your site'} />}
-              {s.status === 'complete' && s.report && <Report report={s.report} input={s.input} />}
+              {s.status === 'complete' && s.report && <Report report={s.report} input={s.input} id={s.id} />}
               {s.status === 'error' && (
                 <div className="p-10 text-center" data-testid="audit-error-state">
                   <AlertTriangle className="w-10 h-10 text-gold mx-auto mb-3" />

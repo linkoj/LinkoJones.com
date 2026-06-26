@@ -169,6 +169,20 @@ the star; the 3D is the stage.
   (wheel/touch/key/pointer) or any scroll it switches to the original scroll-scrubbed
   mode. Verified motion via canvas pixel sampling.
 
+## Audit PDF + email capture + mailing list (2026-06-26)
+- New lead-gen flow on the UX audit report (`AuditModal.jsx` `LeadCapture`): visitor
+  enters email → POST `/api/audit/{id}/lead` saves them to the `leads` mailing list,
+  generates a PDF (`audit_pdf.py`, fpdf2), emails it via **Resend** (PDF attached + live
+  report link), and reveals a "Download / print PDF" button (opens `/api/audit/{id}/pdf`).
+- Endpoints: `GET /api/audit/{id}/pdf` (on-the-fly PDF), `POST /api/audit/{id}/lead`,
+  `GET /api/leads` (unprotected admin list/export of captured emails).
+- Resend key in backend/.env (RESEND_API_KEY, SENDER_EMAIL). NOTE: sender is the test
+  address `onboarding@resend.dev` → in test mode Resend only delivers to verified
+  addresses. To email real visitors, verify a domain in Resend and set SENDER_EMAIL
+  (e.g. hello@linkojones.com).
+- Verified: PDF 200 (14.8KB valid), lead saved, email_sent=true, leads list populated,
+  and the full UI capture→success→download flow.
+
 ## Backlog / Next
 - P1: Per-case detail view (deep dive: process artifacts, before/after).
 - P1: Real content + headshot/resume PDF; replace placeholder "Maya Chen".
