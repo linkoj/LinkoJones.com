@@ -36,6 +36,14 @@ const BOI = {
   refined: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/3cb2mv4i_freeze%20%E2%80%93%202.png',
 };
 
+// Real QBE underwriting-platform (NorthStar) screens.
+const QBE = {
+  hero: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/rlw2gn3c_urn_aaid_sc_US_767a2d25-a1b1-4b41-900f-924fa7dce52e%20%284%29.png',
+  discover: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/eyqshy6f_urn_aaid_sc_US_767a2d25-a1b1-4b41-900f-924fa7dce52e%20%280.1%29.png',
+  design: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/tca2enjh_urn_aaid_sc_US_767a2d25-a1b1-4b41-900f-924fa7dce52e%20%286%29.png',
+  validate: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/yurzh7gf_urn_aaid_sc_US_767a2d25-a1b1-4b41-900f-924fa7dce52e%20%280.0%29.png',
+};
+
 const CASES = [
   {
     index: '01',
@@ -76,7 +84,7 @@ const CASES = [
     company: 'QBE',
     role: 'Senior UX Designer · interaction, usability',
     image:
-      'https://static.prod-images.emergentagent.com/jobs/93a24390-dc14-4ba6-9cbc-17b819b59f52/images/f6037567b898117675595cdd6c724961271806479561bba4eea7ba9a31241fbf.png',
+      'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/rlw2gn3c_urn_aaid_sc_US_767a2d25-a1b1-4b41-900f-924fa7dce52e%20%284%29.png',
     problem:
       'A Pega-driven underwriting platform was complex and manual. Underwriters needed an intuitive workflow that let automation do the heavy lifting.',
     decision:
@@ -91,9 +99,9 @@ const CASES = [
       overview:
         'Turning a complex, Pega-driven underwriting platform into an intuitive workflow where automation does the heavy lifting.',
       steps: [
-        { title: 'Discover', text: 'Interviews with the day-to-day operations team surfaced the manual steps and the mental models underwriters actually use.', image: ART.research },
-        { title: 'Explore & design', text: 'I tested new navigation and screen-flow concepts, then evolved the strongest into a full solution on the QBE NorthStar system.', image: ART.wireframe },
-        { title: 'Validate', text: 'Usability testing confirmed the workflow held up under real underwriting scenarios before hand-off to engineering.', image: ART.usability },
+        { title: 'Discover', text: 'Interviews with the day-to-day operations team surfaced the manual steps and the mental models underwriters actually use.', image: QBE.discover },
+        { title: 'Explore & design', text: 'I tested new navigation and screen-flow concepts, then evolved the strongest into a full solution on the QBE NorthStar system.', image: QBE.design },
+        { title: 'Validate', text: 'Usability testing confirmed the workflow held up under real underwriting scenarios before hand-off to engineering.', image: QBE.validate },
       ],
       outcome:
         'A clearer, faster underwriting experience that lets specialists focus on judgement, not data entry.',
