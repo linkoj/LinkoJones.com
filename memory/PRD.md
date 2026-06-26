@@ -136,6 +136,30 @@ the star; the 3D is the stage.
 - NOTE: in preview, editing backend files hot-reloads uvicorn and kills in-flight
   audit BackgroundTasks; not an issue in production (no --reload).
 
+## Home/mobile polish + ambient audio (2026-06-26)
+- Removed "AI" wording from the hero audit CTA ("Free UX audit" + new consultancy
+  subline) per request — the tool's AI use stays behind the scenes.
+- About photo is now a clean circle (`rounded-full`, no border).
+- Ambient background music: `components/AudioToggle.jsx` autoplays
+  linkojones.com/audio/Weathermix.(ogg|mp3) on load; browsers block autoplay-with-
+  sound, so it falls back to the first user gesture (pointer/key/wheel/touch). A
+  speaker button in the header toggles play/mute (Volume2/VolumeX). Audio is
+  referenced from the external URLs (not bundled — files are ~33MB each).
+- Mobile layout fix: `.overlay-section` now uses `align-items: safe center` +
+  `overflow-y:auto` + `pointer-events:auto`, so tall sections start at the TOP and
+  scroll vertically (like the modal) instead of being centred and clipped at the top.
+  Edge prev/next arrows are hidden on mobile (`hidden md:grid`); compact prev/next
+  buttons added around the NN/NN indicator in the bottom bar for mobile nav.
+- Verified at 390px: edge arrows hidden, bottom-bar prev/next visible, About section
+  scrollTop=0 with scrollH(1019)>clientH(560) — top no longer cut off.
+
+## Real case imagery — Bank of Ireland (2026-06-26)
+- Replaced generated artifacts in CASES[0] (`data/content.js`, `BOI` constant) with
+  Linko's real BOI work: isometric phone collage as the case hero, the loan/insight
+  Account screen for "Discover", and the two "Freeze card" wireframe iterations for
+  "Define & design" and "Validate". Verified in the case-study modal.
+- QBE & Vanguard still use placeholder ART artifacts — awaiting real images from user.
+
 ## Backlog / Next
 - P1: Per-case detail view (deep dive: process artifacts, before/after).
 - P1: Real content + headshot/resume PDF; replace placeholder "Maya Chen".

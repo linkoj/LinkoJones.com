@@ -71,7 +71,7 @@ export default function Nav() {
         data-testid="nav-prev"
         aria-label="Previous section"
         onClick={() => go(-1)}
-        className="fixed left-3 md:left-6 top-1/2 -translate-y-1/2 z-40 bg-ice text-white w-10 h-20 md:w-12 md:h-24 rounded-xl grid place-items-center hover:bg-[#0040a4] transition-colors disabled:opacity-30"
+        className="hidden md:grid fixed left-3 md:left-6 top-1/2 -translate-y-1/2 z-40 bg-ice text-white w-10 h-20 md:w-12 md:h-24 rounded-xl place-items-center hover:bg-[#0040a4] transition-colors disabled:opacity-30"
         disabled={active === 0}
       >
         <ChevronLeft className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.5} />
@@ -80,7 +80,7 @@ export default function Nav() {
         data-testid="nav-next"
         aria-label="Next section"
         onClick={() => go(1)}
-        className="fixed right-3 md:right-6 top-1/2 -translate-y-1/2 z-40 bg-ice text-white w-10 h-20 md:w-12 md:h-24 rounded-xl grid place-items-center hover:bg-[#0040a4] transition-colors disabled:opacity-30"
+        className="hidden md:grid fixed right-3 md:right-6 top-1/2 -translate-y-1/2 z-40 bg-ice text-white w-10 h-20 md:w-12 md:h-24 rounded-xl place-items-center hover:bg-[#0040a4] transition-colors disabled:opacity-30"
         disabled={active === N - 1}
       >
         <ChevronRight className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.5} />
@@ -127,10 +127,30 @@ export default function Nav() {
               </button>
             ))}
           </nav>
-          {/* Mobile: compact position indicator */}
-          <span className="md:hidden text-xs tracking-widest2 text-white/80">
-            {String(active + 1).padStart(2, '0')} / {String(N).padStart(2, '0')}
-          </span>
+          {/* Mobile: compact prev / indicator / next */}
+          <div className="md:hidden flex items-center gap-3">
+            <button
+              data-testid="nav-prev-mobile"
+              aria-label="Previous section"
+              onClick={() => go(-1)}
+              disabled={active === 0}
+              className="grid place-items-center w-8 h-8 rounded-lg bg-white/15 text-white disabled:opacity-30"
+            >
+              <ChevronLeft className="w-4 h-4" strokeWidth={2.5} />
+            </button>
+            <span className="text-xs tracking-widest2 text-white/80 tabular-nums">
+              {String(active + 1).padStart(2, '0')} / {String(N).padStart(2, '0')}
+            </span>
+            <button
+              data-testid="nav-next-mobile"
+              aria-label="Next section"
+              onClick={() => go(1)}
+              disabled={active === N - 1}
+              className="grid place-items-center w-8 h-8 rounded-lg bg-white/15 text-white disabled:opacity-30"
+            >
+              <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
+            </button>
+          </div>
         </div>
       </div>
     </>

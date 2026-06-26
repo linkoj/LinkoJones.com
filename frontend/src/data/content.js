@@ -28,6 +28,14 @@ const ART = {
     'https://static.prod-images.emergentagent.com/jobs/93a24390-dc14-4ba6-9cbc-17b819b59f52/images/127329c9e4e12d712bf7f4aeba91d87216acc70d3dd58eeee73bceaf861cc9b3.png',
 };
 
+// Real Bank of Ireland project artifacts.
+const BOI = {
+  hero: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/imu8nbh9_BOI_iphone_mockup.png',
+  insight: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/faru6x5v_Screenshot%202026-04-02%20213319.png',
+  wireframe: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/xte97bzt_freeze%20%E2%80%93%201.png',
+  refined: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/3cb2mv4i_freeze%20%E2%80%93%202.png',
+};
+
 const CASES = [
   {
     index: '01',
@@ -37,7 +45,7 @@ const CASES = [
     company: 'Bank of Ireland',
     role: 'Senior UX Designer · research, IA, interaction',
     image:
-      'https://static.prod-images.emergentagent.com/jobs/93a24390-dc14-4ba6-9cbc-17b819b59f52/images/29421798cf62186ef5a2b36a7672bea1348705ab148fc25a80a5afcdb5961c96.png',
+      'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/imu8nbh9_BOI_iphone_mockup.png',
     problem:
       'The mobile banking app needed to feel like a service, not a screen — helping customers stay ahead of financial delinquency with timely, tailored guidance.',
     decision:
@@ -52,9 +60,9 @@ const CASES = [
       overview:
         'A service-led rethink of the Bank of Ireland mobile app, designed to help customers stay ahead of financial difficulty rather than react to it.',
       steps: [
-        { title: 'Discover', text: 'Stakeholder workshops, customer interviews and analytics revealed where people dropped out of the journey and where the process felt like an interrogation.', image: ART.research },
-        { title: 'Define & design', text: 'I built personas and journeys, then designed a chatbot-led service layer and rebuilt the core flows on the bank’s new design framework for tablet and mobile.', image: ART.wireframe },
-        { title: 'Validate', text: 'Prototypes were tested with customers and refined alongside the support team so the experience matched real conversations.', image: ART.usability },
+        { title: 'Discover', text: 'Stakeholder workshops, customer interviews and analytics revealed where people dropped out of the journey and where the process felt like an interrogation.', image: BOI.insight },
+        { title: 'Define & design', text: 'I built personas and journeys, then designed a chatbot-led service layer and rebuilt the core flows on the bank’s new design framework for tablet and mobile.', image: BOI.wireframe },
+        { title: 'Validate', text: 'Prototypes were tested with customers and refined alongside the support team so the experience matched real conversations.', image: BOI.refined },
       ],
       outcome:
         'A warmer, more proactive banking experience that treats support as a feature, not an afterthought.',

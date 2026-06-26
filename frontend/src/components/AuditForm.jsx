@@ -22,7 +22,7 @@ export default function AuditForm() {
 
   return (
     <form onSubmit={submit} data-testid="audit-form" className="mt-7 max-w-xl mx-auto text-left">
-      <div className="kicker text-ice/80 mb-2 text-center">Free AI-accelerated UX audit</div>
+      <div className="kicker text-ice/80 mb-2 text-center">Free UX audit</div>
       <div className="flex items-stretch gap-2 rounded-2xl bg-white/80 backdrop-blur-md border border-ice/25 p-1.5 shadow-[0_8px_30px_rgba(0,40,128,0.12)]">
         <input
           data-testid="audit-url-input"
@@ -74,7 +74,7 @@ export default function AuditForm() {
         </div>
       )}
       <p className="mt-3 text-[11px] text-mist/60 text-center">
-        AI accelerates the analysis — a senior consultancy mindset shapes the read.
+        A senior consultancy read of your experience — structured, opinionated, and actionable.
       </p>
     </form>
   );

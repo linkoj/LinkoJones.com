@@ -53,7 +53,7 @@ export function AboutSection() {
               src={PROFILE.photo}
               alt={PROFILE.name}
               data-testid="about-photo"
-              className="w-24 h-24 md:w-32 md:h-32 rounded-2xl object-cover border border-night/10 shadow-lg"
+              className="w-24 h-24 md:w-32 md:h-32 rounded-full object-cover shadow-lg"
             />
           ) : (
             <div
