@@ -24,8 +24,8 @@ load_dotenv(os.path.join(ROOT_DIR, ".env"))
 
 MONGO_URL = os.environ["MONGO_URL"]
 DB_NAME = os.environ["DB_NAME"]
-resend.api_key = os.environ["RESEND_API_KEY"]
-SENDER_EMAIL = os.environ["SENDER_EMAIL"]
+resend.api_key = os.environ.get("RESEND_API_KEY")
+SENDER_EMAIL = os.environ.get("SENDER_EMAIL", "onboarding@resend.dev")
 AUDIT_MAX_PER_HOUR = int(os.environ.get("AUDIT_MAX_PER_HOUR", "3"))
 AUDIT_MAX_PER_DAY = int(os.environ.get("AUDIT_MAX_PER_DAY", "10"))
 
@@ -215,15 +215,18 @@ async def capture_lead(audit_id: str, payload: LeadRequest):
     error = None
     try:
         pdf_bytes = build_pdf(doc["report"], doc.get("url"), doc.get("industry"), doc.get("business_goal"))
-        params = {
-            "from": SENDER_EMAIL,
-            "to": [email],
-            "subject": f"Your UX audit for {doc.get('url')}",
-            "html": _audit_email_html(doc.get("url"), payload.report_url),
-            "attachments": [{"filename": "LinkoJones-UX-Audit.pdf", "content": list(pdf_bytes)}],
-        }
-        result = await asyncio.to_thread(resend.Emails.send, params)
-        email_sent = bool(result and result.get("id"))
+        if not resend.api_key:
+            error = "Email delivery is not configured."
+        else:
+            params = {
+                "from": SENDER_EMAIL,
+                "to": [email],
+                "subject": f"Your UX audit for {doc.get('url')}",
+                "html": _audit_email_html(doc.get("url"), payload.report_url),
+                "attachments": [{"filename": "LinkoJones-UX-Audit.pdf", "content": list(pdf_bytes)}],
+            }
+            result = await asyncio.to_thread(resend.Emails.send, params)
+            email_sent = bool(result and result.get("id"))
     except Exception as e:
         logger.error(f"Resend send failed: {e}")
         error = str(e)
