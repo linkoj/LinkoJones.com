@@ -1,10 +1,10 @@
-from fastapi import FastAPI, APIRouter, HTTPException, BackgroundTasks
+from fastapi import FastAPI, APIRouter, HTTPException, BackgroundTasks, Request
 from fastapi.responses import Response
 from fastapi.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field
 from typing import List, Optional
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import os
 import re
 import uuid
@@ -26,6 +26,8 @@ MONGO_URL = os.environ["MONGO_URL"]
 DB_NAME = os.environ["DB_NAME"]
 resend.api_key = os.environ["RESEND_API_KEY"]
 SENDER_EMAIL = os.environ["SENDER_EMAIL"]
+AUDIT_MAX_PER_HOUR = int(os.environ.get("AUDIT_MAX_PER_HOUR", "3"))
+AUDIT_MAX_PER_DAY = int(os.environ.get("AUDIT_MAX_PER_DAY", "10"))
 
 client = AsyncIOMotorClient(MONGO_URL)
 db = client[DB_NAME]
@@ -99,7 +101,22 @@ async def _run_audit(audit_id: str, payload: AuditRequest):
 
 
 @api.post("/audit")
-async def create_audit(payload: AuditRequest, background_tasks: BackgroundTasks):
+async def create_audit(payload: AuditRequest, request: Request, background_tasks: BackgroundTasks):
+    # Identify the caller (respect proxy headers from the k8s ingress).
+    fwd = request.headers.get("x-forwarded-for")
+    ip = (fwd.split(",")[0].strip() if fwd else (request.client.host if request.client else "unknown"))
+
+    now = datetime.now(timezone.utc)
+    hour_ago = (now - timedelta(hours=1)).isoformat()
+    day_ago = (now - timedelta(days=1)).isoformat()
+    per_hour = await db.audits.count_documents({"ip": ip, "created_at": {"$gte": hour_ago}})
+    per_day = await db.audits.count_documents({"ip": ip, "created_at": {"$gte": day_ago}})
+    if per_hour >= AUDIT_MAX_PER_HOUR or per_day >= AUDIT_MAX_PER_DAY:
+        raise HTTPException(
+            status_code=429,
+            detail=f"You've reached the audit limit ({AUDIT_MAX_PER_HOUR}/hour, {AUDIT_MAX_PER_DAY}/day). Please try again later.",
+        )
+
     audit_id = str(uuid.uuid4())
     doc = {
         "id": audit_id,
@@ -107,7 +124,8 @@ async def create_audit(payload: AuditRequest, background_tasks: BackgroundTasks)
         "url": payload.url,
         "industry": payload.industry,
         "business_goal": payload.business_goal,
-        "created_at": datetime.now(timezone.utc).isoformat(),
+        "ip": ip,
+        "created_at": now.isoformat(),
     }
     await db.audits.insert_one(doc)
     background_tasks.add_task(_run_audit, audit_id, payload)

@@ -37,7 +37,14 @@ export const auditStore = {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url, industry: industry || null, business_goal: business_goal || null }),
       });
-      if (!res.ok) throw new Error('Could not start the audit.');
+      if (!res.ok) {
+        let detail = 'Could not start the audit.';
+        try {
+          const err = await res.json();
+          if (err && err.detail) detail = err.detail;
+        } catch (e) { /* noop */ }
+        throw new Error(detail);
+      }
       const data = await res.json();
       this.set({ id: data.id });
       try {

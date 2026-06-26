@@ -183,6 +183,15 @@ the star; the 3D is the stage.
 - Verified: PDF 200 (14.8KB valid), lead saved, email_sent=true, leads list populated,
   and the full UI capture→success→download flow.
 
+## Audit rate-limiting (2026-06-26)
+- IP-based rate limit on `POST /api/audit` to protect the Universal Key budget:
+  default 3/hour and 10/day per IP (env: `AUDIT_MAX_PER_HOUR`, `AUDIT_MAX_PER_DAY`),
+  respecting the ingress `x-forwarded-for`. Returns 429 with a friendly message that the
+  audit modal now surfaces (state/audit.js parses `detail`). `ip` stored on audit docs.
+- ROOT CAUSE of "We couldn't finish that audit" was the Emergent Universal Key budget
+  cap ($1.40) being exceeded — user must top up via Profile → Universal Key → Add Balance
+  (or enable auto top-up). Each audit ≈ $0.05–0.12 (Claude Sonnet 4.6).
+
 ## Backlog / Next
 - P1: Per-case detail view (deep dive: process artifacts, before/after).
 - P1: Real content + headshot/resume PDF; replace placeholder "Maya Chen".
