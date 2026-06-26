@@ -44,6 +44,14 @@ const QBE = {
   validate: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/yurzh7gf_urn_aaid_sc_US_767a2d25-a1b1-4b41-900f-924fa7dce52e%20%280.0%29.png',
 };
 
+// Real Vanguard (Dynamics 365 / V360) project shots.
+const VANGUARD = {
+  hero: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/s873phas_Company1Summary.jpg',
+  discover: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/bbmtd5ar_vanguard-project-shot-3.png',
+  design: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/70fra75m_vanguard-project-shot-2.png',
+  deliver: 'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/ebhhzlgm_vanguard-project-shot-1.png',
+};
+
 const CASES = [
   {
     index: '01',
@@ -115,7 +123,7 @@ const CASES = [
     company: 'Vanguard',
     role: 'Senior UX Designer · research, IA, design systems',
     image:
-      'https://static.prod-images.emergentagent.com/jobs/93a24390-dc14-4ba6-9cbc-17b819b59f52/images/ccbfc96684b82eec91e51c05449c4b53d0ba262ed2a9e420fe4a09c87643b3b2.png',
+      'https://customer-assets.emergentagent.com/job_design-odyssey-6/artifacts/s873phas_Company1Summary.jpg',
     problem:
       'Vanguard was migrating from legacy software into Dynamics 365, and needed a secure portal for financial professionals plus a CPD learning experience.',
     decision:
@@ -130,9 +138,9 @@ const CASES = [
       overview:
         'A secure portal and CPD learning experience for financial professionals, built as Vanguard migrated to Dynamics 365.',
       steps: [
-        { title: 'Discover', text: 'Research with financial professionals shaped personas and scenarios, kept in sync with the Vanguard brand.', image: ART.research },
-        { title: 'Design', text: 'I designed a secure B2B portal and a CPD learning portal that surfaces signals and insights for the sales teams.', image: ART.wireframe },
-        { title: 'Deliver', text: 'Designs were prepared for development within Dynamics 365 and validated with stakeholders along the way.', image: ART.usability },
+        { title: 'Discover', text: 'Research with financial professionals shaped personas and scenarios, kept in sync with the Vanguard brand.', image: VANGUARD.discover },
+        { title: 'Design', text: 'I designed a secure B2B portal and a CPD learning portal that surfaces signals and insights for the sales teams.', image: VANGUARD.design },
+        { title: 'Deliver', text: 'Designs were prepared for development within Dynamics 365 and validated with stakeholders along the way.', image: VANGUARD.deliver },
       ],
       outcome:
         'A trusted, on-brand portal that turns learning and data into an everyday advantage for professionals.',

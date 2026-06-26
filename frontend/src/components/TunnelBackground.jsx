@@ -19,11 +19,8 @@ export default function TunnelBackground() {
 
     const ready = (im) => im && im.complete && im.naturalWidth > 0;
 
-    const pickIndex = () => {
-      const p = Math.min(1, Math.max(0, scrollState.target));
-      let idx = Math.round(p * (FRAME_COUNT - 1));
+    const nearestLoaded = (idx) => {
       if (ready(images[idx])) return idx;
-      // fall back to the nearest already-loaded frame while loading
       for (let d = 1; d < FRAME_COUNT; d++) {
         if (ready(images[idx - d])) return idx - d;
         if (ready(images[idx + d])) return idx + d;
@@ -31,8 +28,15 @@ export default function TunnelBackground() {
       return -1;
     };
 
-    const draw = () => {
-      const idx = pickIndex();
+    const scrollIndex = () => {
+      const p = Math.min(1, Math.max(0, scrollState.target));
+      return Math.round(p * (FRAME_COUNT - 1));
+    };
+
+    let lastDrawn = -1;
+
+    const draw = (target) => {
+      const idx = nearestLoaded(target);
       if (idx < 0) return;
       const im = images[idx];
       const cw = canvas.width;
@@ -53,25 +57,39 @@ export default function TunnelBackground() {
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
       canvas.width = Math.floor(window.innerWidth * dpr);
       canvas.height = Math.floor(window.innerHeight * dpr);
-      draw();
+      draw(lastDrawn < 0 ? 0 : lastDrawn);
     };
 
-    // Preload all frames; redraw as each arrives.
+    // Preload all frames; redraw the current frame as each arrives.
     for (let i = 0; i < FRAME_COUNT; i++) {
       const img = new Image();
-      img.onload = draw;
+      img.onload = () => draw(lastDrawn < 0 ? 0 : lastDrawn);
       img.src = framePath(i);
       images[i] = img;
     }
 
+    // Mode: auto-play the full drive on landing; hand over to scroll-scrubbing
+    // the moment the visitor scrolls, taps or presses a key.
+    let mode = 'auto';
+    const AUTOPLAY_MS = 6500;
+    const startTime = performance.now();
+    const goScroll = () => { mode = 'scroll'; };
+    const interactions = ['wheel', 'touchstart', 'keydown', 'pointerdown'];
+    interactions.forEach((e) => window.addEventListener(e, goScroll, { passive: true }));
+
     let raf;
-    let last = -1;
     const loop = () => {
-      const p = Math.min(1, Math.max(0, scrollState.target));
-      const idx = Math.round(p * (FRAME_COUNT - 1));
-      if (idx !== last) {
-        last = idx;
-        draw();
+      if (mode === 'auto' && scrollState.target > 0.001) mode = 'scroll';
+      let target;
+      if (mode === 'auto') {
+        const frac = ((performance.now() - startTime) % AUTOPLAY_MS) / AUTOPLAY_MS;
+        target = Math.round(frac * (FRAME_COUNT - 1));
+      } else {
+        target = scrollIndex();
+      }
+      if (target !== lastDrawn) {
+        lastDrawn = target;
+        draw(target);
       }
       raf = requestAnimationFrame(loop);
     };
@@ -82,6 +100,7 @@ export default function TunnelBackground() {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
+      interactions.forEach((e) => window.removeEventListener(e, goScroll));
     };
   }, []);
 

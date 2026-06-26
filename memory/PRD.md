@@ -160,6 +160,15 @@ the star; the 3D is the stage.
   "Define & design" and "Validate". Verified in the case-study modal.
 - QBE & Vanguard still use placeholder ART artifacts — awaiting real images from user.
 
+## Vanguard imagery + landing autoplay (2026-06-26)
+- CASES[2] (`VANGUARD` constant) now uses real shots: Company1Summary as hero, the
+  V360 flow/sitemap for Discover, the Preference Centre for Design, the Dynamics 365
+  services screen for Deliver. All three case studies (BOI/QBE/Vanguard) now use real work.
+- TunnelBackground.jsx: on landing the Zonda sequence now AUTO-PLAYS the full drive
+  (time-based loop, ~6.5s) so the page feels alive immediately; on first interaction
+  (wheel/touch/key/pointer) or any scroll it switches to the original scroll-scrubbed
+  mode. Verified motion via canvas pixel sampling.
+
 ## Backlog / Next
 - P1: Per-case detail view (deep dive: process artifacts, before/after).
 - P1: Real content + headshot/resume PDF; replace placeholder "Maya Chen".
