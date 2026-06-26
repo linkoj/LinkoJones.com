@@ -240,6 +240,17 @@ async def list_leads():
     return {"count": len(docs), "leads": docs}
 
 
+@app.on_event("startup")
+async def _ensure_indexes():
+    try:
+        await db.audits.create_index("id", unique=True)
+        await db.audits.create_index([("ip", 1), ("created_at", -1)])
+        await db.leads.create_index([("created_at", -1)])
+        await db.leads.create_index([("email", 1), ("audit_id", 1)], unique=True)
+    except Exception as e:
+        logger.warning(f"index creation skipped: {e}")
+
+
 app.include_router(api)
 
 app.add_middleware(
