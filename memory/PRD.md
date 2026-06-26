@@ -192,6 +192,14 @@ the star; the 3D is the stage.
   cap ($1.40) being exceeded — user must top up via Profile → Universal Key → Add Balance
   (or enable auto top-up). Each audit ≈ $0.05–0.12 (Claude Sonnet 4.6).
 
+## Favicon + verified Resend sender (2026-06-26)
+- Favicon: generated full icon set from `LinkoJonesFormiaTransparent.png` (glassy blue
+  mark) placed on a deep-navy (#060914) square for contrast on light tabs: favicon.ico
+  (16/32/48), favicon-16/32.png, apple-touch-icon.png (180), android-chrome-192/512,
+  site.webmanifest. Wired into public/index.html; theme-color set to #004bc8. All 200.
+- Resend sender switched to verified `hello@linkojones.com` (SENDER_EMAIL in backend/.env)
+  now that the user verified the linkojones.com domain — real visitor delivery enabled.
+
 ## Backlog / Next
 - P1: Per-case detail view (deep dive: process artifacts, before/after).
 - P1: Real content + headshot/resume PDF; replace placeholder "Maya Chen".
